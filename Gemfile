@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
-ruby "3.3.0"
+#ruby file: ".ruby-version"
+ruby '~> 3.2.0'
 
 # Use main development branch of Rails
 gem "rails", github: "rails/rails", branch: "main"
