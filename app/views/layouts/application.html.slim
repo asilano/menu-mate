@@ -14,5 +14,6 @@ html
     link[rel="apple-touch-icon" href="/icon.png"]
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", type: "module"
+    = javascript_include_tag "https://accounts.google.com/gsi/client", async: true, defer: true
   body
     = yield
