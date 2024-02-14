@@ -1,2 +1,17 @@
-div data={ controller: "google-login", action: "gsi-loaded@document->google-login#setup", "google-login-client-id-value": Rails.application.credentials.google_sign_in.client_id }
-  div data={ "google-login-target": "signIn"}
+#g_id_onload[
+     data-client_id=Rails.application.credentials.google_sign_in.client_id
+     data-context="signin"
+     data-ux_mode="popup"
+     data-login_uri=logins_url
+     data-authenticity_token=form_authenticity_token
+     data-itp_support="true"
+]
+
+.g_id_signin[
+     data-type="standard"
+     data-shape="rectangular"
+     data-theme="outline"
+     data-text="signin_with"
+     data-size="large"
+     data-logo_alignment="left"
+]
