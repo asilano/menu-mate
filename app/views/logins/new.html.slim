@@ -1,8 +1,13 @@
+- if flash[:notice]
+  .notice= flash[:notice]
+- if flash[:alert]
+  .alert= flash[:alert]
+
 #g_id_onload[
      data-client_id=Rails.application.credentials.google_sign_in.client_id
      data-context="signin"
      data-ux_mode="popup"
-     data-login_uri=logins_url
+     data-login_uri=google_logins_url
      data-authenticity_token=form_authenticity_token
      data-itp_support="true"
 ]
