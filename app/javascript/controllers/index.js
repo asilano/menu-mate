@@ -3,6 +3,3 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application"
-
-import GoogleLoginController from "./google_login_controller"
-application.register("google-login", GoogleLoginController)
