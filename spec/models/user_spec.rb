@@ -30,7 +30,7 @@ RSpec.describe User, type: :model do
       let(:google_data) do
         {
           "sub" => "123",
-          "email" => "bob@example.com",
+          "email" => "bob@example.com"
         }
       end
 
@@ -38,7 +38,7 @@ RSpec.describe User, type: :model do
         user = User.create_from(google_data)
         expect(user.attributes).to match hash_including({
           "google_userid" => "123",
-          "email" => "bob@example.com",
+          "email" => "bob@example.com"
         })
         expect(user).to be_persisted
       end
