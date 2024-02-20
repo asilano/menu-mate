@@ -1,9 +1,6 @@
 class LoginsController < ApplicationController
   before_action :validate_google_csrf, only: :google
 
-  def new
-  end
-
   def google
     @google_account_info = Google::Auth::IDTokens.verify_oidc(
       params[:credential],
@@ -24,6 +21,14 @@ class LoginsController < ApplicationController
       end
     end
 
+    login user if user
+
+    redirect_to :root
+  end
+
+  def destroy
+    logout
+    flash[:suppress_autologin] = true
     redirect_to :root
   end
 

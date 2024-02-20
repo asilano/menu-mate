@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resource "logins", only: [:new] do
+  get 'static/root'
+  resource "logins", only: [:new, :destroy] do
     post :google
   end
 
@@ -14,5 +15,5 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
-  root "logins#new"
+  root "static#root"
 end

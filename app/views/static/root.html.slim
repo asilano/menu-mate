@@ -1,0 +1,27 @@
+main#root-page
+  - if flash[:notice]
+    .notice= flash[:notice]
+  - if flash[:alert]
+    .alert= flash[:alert]
+
+  .recipe-book-logo
+    | Menu Mate
+    - unless user_signed_in?
+      #g_id_onload[
+          data-client_id=Rails.application.credentials.google_sign_in.client_id
+          data-context="signin"
+          data-ux_mode="popup"
+          data-login_uri=google_logins_url
+          data-authenticity_token=form_authenticity_token
+          data-auto_select="#{!@suppress_autologin}"
+          data-itp_support="true"
+      ]
+
+      .g_id_signin[
+          data-type="standard"
+          data-shape="rectangular"
+          data-theme="outline"
+          data-text="signin_with"
+          data-size="large"
+          data-logo_alignment="left"
+      ]

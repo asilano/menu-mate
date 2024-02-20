@@ -1,0 +1,7 @@
+@use 'sass:color';
+
+:root {
+  --banner-height: 50px;
+  --banner-background: blue;
+  --banner-highlight: color.scale(var(--banner-background), $lightness: 10%);
+}
