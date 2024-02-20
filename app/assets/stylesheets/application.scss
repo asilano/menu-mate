@@ -35,6 +35,14 @@ html {
       background-color: var(--banner-highlight);
     }
   }
+
+  .google-profile-img {
+    --size: calc(var(--banner-height) * 0.8);
+    height: var(--size);
+    width: var(--size);
+    border-radius: 50%;
+    margin: 0 5px;
+  }
 }
 
 main#root-page {
