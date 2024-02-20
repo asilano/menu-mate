@@ -100,6 +100,9 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.4.0)
       railties (>= 6.0.0)
+    dartsass-rails (0.5.0)
+      railties (>= 6.0.0)
+      sass-embedded (~> 1.63)
     date (3.3.4)
     debug (1.9.1)
       irb (~> 1.10)
@@ -121,6 +124,12 @@ GEM
       activesupport (>= 6.1)
     google-cloud-env (2.1.1)
       faraday (>= 1.0, < 3.a)
+    google-protobuf (3.25.3)
+    google-protobuf (3.25.3-aarch64-linux)
+    google-protobuf (3.25.3-arm64-darwin)
+    google-protobuf (3.25.3-x86-linux)
+    google-protobuf (3.25.3-x86_64-darwin)
+    google-protobuf (3.25.3-x86_64-linux)
     googleauth (1.11.0)
       faraday (>= 1.0, < 3.a)
       google-cloud-env (~> 2.1)
@@ -296,6 +305,18 @@ GEM
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
+    sass-embedded (1.71.0-aarch64-linux-gnu)
+      google-protobuf (~> 3.25)
+    sass-embedded (1.71.0-arm-linux-gnueabihf)
+      google-protobuf (~> 3.25)
+    sass-embedded (1.71.0-arm64-darwin)
+      google-protobuf (~> 3.25)
+    sass-embedded (1.71.0-x86-linux-gnu)
+      google-protobuf (~> 3.25)
+    sass-embedded (1.71.0-x86_64-darwin)
+      google-protobuf (~> 3.25)
+    sass-embedded (1.71.0-x86_64-linux-gnu)
+      google-protobuf (~> 3.25)
     selenium-webdriver (4.17.0)
       base64 (~> 0.2)
       rexml (~> 3.2, >= 3.2.5)
@@ -355,6 +376,7 @@ DEPENDENCIES
   brakeman
   capybara
   cssbundling-rails
+  dartsass-rails (~> 0.5.0)
   debug
   factory_bot_rails
   googleauth
