@@ -1,6 +1,10 @@
 @use 'sass:color';
 
 :root {
+  $body-background: #fafafa;
+  --body-background: #{$body-background};
+  --overlay-background: #{color.scale($body-background, $lightness: 50%, $alpha: -5%)};
+
   $banner-background: blue;
   --banner-height: 50px;
   --banner-background: #{$banner-background};
