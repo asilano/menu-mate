@@ -1,4 +1,5 @@
 class LoginsController < ApplicationController
+  before_action :redirect_if_authenticated, only: :google
   before_action :validate_google_csrf, only: :google
 
   def google
@@ -10,20 +11,18 @@ class LoginsController < ApplicationController
 
     user = User.find_by(google_userid:)
     if user
-      flash.notice = "Found existing user id #{user.id}"
       user.update_from @google_account_info
     else
       user = User.create_from @google_account_info
-      if user
-        flash.notice = "Created new user id #{user.id}"
-      else
-        flash.alert = "Failed to create user"
-      end
     end
 
-    login user if user
+    after_login_path = :root
+    if user&.persisted?
+      after_login_path = session[:user_return_to] || :root
+      login user
+    end
 
-    redirect_to :root
+    redirect_to after_login_path
   end
 
   def destroy

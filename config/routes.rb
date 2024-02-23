@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'static/root'
+  get "static/root"
   resource "logins", only: [:new, :destroy] do
     post :google
   end

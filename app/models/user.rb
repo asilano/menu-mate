@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :active_sessions, dependent: :destroy
+
   validates :google_userid, presence: true
 
   GOOGLE_TO_DB_ATTRIB_MAP = {
@@ -7,7 +9,7 @@ class User < ApplicationRecord
     "name" => :name,
     "first_name" => :first_name,
     "picture" => :picture_uri
-}.freeze
+  }.freeze
 
   def self.create_from(google_account_info)
     create(attributes_from google_account_info)
