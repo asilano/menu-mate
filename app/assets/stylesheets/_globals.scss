@@ -4,6 +4,7 @@
   $body-background: #fafafa;
   --body-background: #{$body-background};
   --overlay-background: #{color.scale($body-background, $lightness: 50%, $alpha: -5%)};
+  --hovered-book-background: #f5f5dc;
 
   $banner-background: blue;
   --banner-height: 50px;

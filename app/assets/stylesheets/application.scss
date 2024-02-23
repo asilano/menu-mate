@@ -76,7 +76,7 @@ main#root-page {
     font-size: 2.5em;
 
     &:hover {
-      background-color: red;
+      background-color: var(--hovered-book-background);
     }
   }
 
