@@ -17,4 +17,5 @@ html
     = javascript_include_tag "https://accounts.google.com/gsi/client", async: true, defer: true
   body
     = render partial: "shared/banner"
-    = yield
+    main[id=("root-page" if @root_page)]
+      = yield
