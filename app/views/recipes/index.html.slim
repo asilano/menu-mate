@@ -1,3 +1,8 @@
 h1 Recipes
-ul
+div[data={controller: "new-item"}]
+  = link_to "Add new recipe", "#", class: %w[button primary], data: { action: "new-item#showDialog:prevent" }
+  dialog#new-recipe[data={"new-item-target" => "dialog"}]
+    = link_to "Cancel", "#", class: %w[button hollow], data: { action: "new-item#closeDialog:prevent" }
+    = render partial: "new_form"
+#recipe-list
   = render partial: "recipe", collection: @recipes
