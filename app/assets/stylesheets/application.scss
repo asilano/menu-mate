@@ -69,6 +69,11 @@ main#root-page {
   width: 50%;
   z-index: 0;
 
+  @media screen and (max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+  }
+
   .left, .right {
     content: '';
     border: 1px solid black;
@@ -83,6 +88,7 @@ main#root-page {
     align-items: center;
     text-align: center;
     font-size: 2.5em;
+    padding: 10px;
 
     &:hover {
       background-color: var(--hovered-book-background);
@@ -100,6 +106,18 @@ main#root-page {
     top: 0;
     left: 50%;
     right: 0;
+  }
+
+  .left, .right {
+    @media screen and (max-width: 800px) {
+      position: relative;
+      height: auto;
+      flex: 1 1 0;
+      border-radius: 2px;
+      left: 0;
+      right: 0;
+      // font-size: 1.5em;
+    }
   }
 
   .blocker {
