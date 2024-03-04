@@ -28,6 +28,47 @@ RSpec.describe "Recipes", type: :request do
         end
       end
     end
+
+    describe "POST /recipes" do
+      describe "with valid params" do
+        let(:params) do
+          {
+            recipe: {
+              name: "Tiramisu"
+            }
+          }
+        end
+
+        it "returns success" do
+          post recipes_path, params: params, as: :turbo_stream
+          expect(response).to have_http_status :success
+        end
+
+        it "creates a new recipe" do
+          expect { post recipes_path, params:, as: :turbo_stream }.to change { Recipe.count }.by 1
+          expect(Recipe.last.name).to eq "Tiramisu"
+        end
+      end
+
+      describe "with invalid params" do
+        let(:params) do
+          {
+            recipe: {
+              name: ""
+            }
+          }
+        end
+
+        it "returns success" do
+          post recipes_path, params: params, as: :turbo_stream
+          expect(response).to have_http_status :success
+        end
+
+        it "does not create a new recipe" do
+          expect { post recipes_path, params:, as: :turbo_stream }.not_to change { Recipe.count }
+        end
+      end
+    end
   end
 
   context "when not logged in" do
