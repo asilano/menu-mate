@@ -26,7 +26,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_23_232826) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_recipes_on_name", unique: true
+    t.index ["name"], name: "index_recipes_on_name"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
