@@ -54,7 +54,7 @@ main {
   padding: var(--banner-height) 8px 0;
 }
 
-main#root-page {
+main#root-page, #modal-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -139,5 +139,28 @@ main#root-page {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+}
+
+#modal-wrapper {
+  position: absolute;
+  z-index: -1;
+}
+
+#modal {
+  z-index: 2;
+  width: 400px;
+  word-break: break-word;
+  border-radius: 6px;
+  // background: #bad5ff;
+  background-color: var(--body-background);
+  box-shadow: 5px 5px 15px 0px #808080;
+
+  .modal-inner {
+    padding: 30px;
+  }
+
+  h1 {
+    font-size: 1.5em;
   }
 }

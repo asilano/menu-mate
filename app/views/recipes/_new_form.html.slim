@@ -1,4 +1,0 @@
-= form_for @recipe do |f|
-  = render partial: "form", locals: { f: }
-  = f.submit "Save and add another"
-  = f.submit "Save and close", data: { action: "new-item#closeDialog" }

@@ -1,4 +1,6 @@
-h1 New recipe
-
-turbo-frame#new-recipe
-  = render "form"
+= turbo_frame_tag "modal" do
+  .modal-inner[data={ controller: "turbo-modal" }]
+    = button_tag data: { action: "turbo-modal#hideModal" }, type: "button" do
+      = "Close"
+    h1 Add Recipe
+    = render "form"

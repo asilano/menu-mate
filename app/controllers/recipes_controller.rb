@@ -6,6 +6,10 @@ class RecipesController < ApplicationController
     @recipe = Recipe.build
   end
 
+  def new
+    @recipe = Recipe.build
+  end
+
   def create
     @new_recipe = current_user.recipes.build(recipe_params)
 
