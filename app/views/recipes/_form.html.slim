@@ -9,8 +9,9 @@
         li= msg
 
   .field
-    = f.text_field :name, placeholder: "Name"
+    = f.text_field :name, placeholder: "Name", size: 50
 
-  - if action_name == "new"
-    = f.submit "Save and add another"
-    = f.submit "Save and close"
+  .button-area
+    - if action_name == "new"
+      = f.submit "Save and add another", class: "large primary"
+      = f.submit "Save and close", class: "large primary"

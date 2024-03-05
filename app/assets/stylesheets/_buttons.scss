@@ -1,0 +1,25 @@
+button, input[type=submit] {
+  border-radius: 2px;
+
+  &.large {
+    height: 3em;
+    &.square {
+      width: 3em;
+    }
+  }
+  &.hollow {
+    background: none;
+    border: 2px solid black;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+  }
+  &.primary {
+    background-color: blue;
+    border: none;
+    padding: 0 10px;
+    color: white;
+  }
+}

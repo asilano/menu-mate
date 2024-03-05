@@ -1,4 +1,6 @@
 @import "globals";
+@import "forms";
+@import "buttons";
 
 * {
   box-sizing: border-box;
@@ -148,6 +150,7 @@ main#root-page, #modal-wrapper {
 }
 
 #modal {
+  position: relative;
   z-index: 2;
   width: 400px;
   word-break: break-word;
@@ -158,6 +161,12 @@ main#root-page, #modal-wrapper {
 
   .modal-inner {
     padding: 30px;
+  }
+
+  .top-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
   }
 
   h1 {
