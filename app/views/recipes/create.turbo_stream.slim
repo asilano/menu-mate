@@ -1,6 +1,2 @@
-= turbo_stream.update "new-recipe" do
-  = link_to "Cancel", "#", class: %w[button hollow], data: { action: "new-item#closeDialog:prevent" }
-  = render partial: "new_form"
-
 = turbo_stream.append "recipe-list" do
   = render partial: "recipe", object: @new_recipe

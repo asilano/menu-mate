@@ -13,3 +13,15 @@ input[type=text] {
     }
   }
 }
+
+#error_explanation {
+  background-color: #ffcdd2;
+  border: 1px solid #b71c1c;
+  border-radius: 2px;
+  margin-bottom: 20px;
+  padding: 10px;
+  h2 {
+    font-size: 1em;
+    margin: 0;
+  }
+}
