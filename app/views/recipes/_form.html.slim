@@ -13,5 +13,5 @@
 
   .button-area
     - if !@recipe.persisted?
-      = f.submit "Save and add another", class: "large primary"
-      = f.submit "Save and close", class: "large primary"
+      = f.submit "Save and add another", name: "another", class: "large primary"
+      = f.submit "Save and close", name: "save", class: "large primary"

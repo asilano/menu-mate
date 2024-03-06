@@ -1,6 +1,1 @@
-= turbo_frame_tag "modal" do
-  .modal-inner[data={ controller: "turbo-modal" }]
-    = button_tag data: { action: "turbo-modal#hideModal" }, type: "button", class: "large square hollow top-right" do
-      i.fa-solid.fa-xmark.fa-xl
-    h1 Add Recipe
-    = render "form"
+= render partial: "new_modal"

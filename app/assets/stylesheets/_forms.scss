@@ -3,12 +3,6 @@ input[type=text] {
   width: 75%
 }
 
-.field {
-  .label::after {
-    content: ":";
-  }
-}
-
 .button-area {
   padding-top: 10px;
   display: flex;

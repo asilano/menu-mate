@@ -6,4 +6,17 @@ export default class extends Controller {
     this.element.parentElement.removeAttribute("src");
     this.element.remove()
   }
+
+  handleKeypress(e) {
+    if (e.code == "Escape") {
+      this.hideModal()
+    }
+  }
+
+  handleClick(e) {
+    if (e && this.element.contains(e.target)) {
+      return
+    }
+    this.hideModal()
+  }
 }
