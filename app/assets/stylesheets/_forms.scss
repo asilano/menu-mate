@@ -1,17 +1,19 @@
 input[type=text] {
   height: 30px;
+  width: 75%
+}
+
+.field {
+  .label::after {
+    content: ":";
+  }
 }
 
 .button-area {
   padding-top: 10px;
-
-  button, input[type=submit] {
-    margin-left: 10px;
-
-    &:first-child {
-      margin-left: 0;
-    }
-  }
+  display: flex;
+  flex-flow: wrap;
+  gap: 10px;
 }
 
 #error_explanation {
