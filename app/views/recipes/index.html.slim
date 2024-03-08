@@ -1,4 +1,4 @@
 h1 Recipes
-= link_to "Add new recipe", new_recipe_path, class: %w[button primary], data: { turbo_frame: "modal" }
+= link_to "Add new recipe", new_recipe_path, class: "button", data: { turbo_frame: "modal" }
 #recipe-list
   = render partial: "recipe", collection: @recipes

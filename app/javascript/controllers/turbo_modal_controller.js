@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="turbo-modal"
 export default class extends Controller {
+  static targets = ["modalInner"]
   hideModal() {
     this.element.parentElement.removeAttribute("src");
     this.element.remove()
@@ -14,7 +15,7 @@ export default class extends Controller {
   }
 
   handleClick(e) {
-    if (e && this.element.contains(e.target)) {
+    if (e && this.modalInnerTarget.contains(e.target)) {
       return
     }
     this.hideModal()

@@ -1,4 +1,4 @@
-button, input[type=submit] {
+button, input[type=submit], .button {
   border-radius: 2px;
 
   &.large {
@@ -22,4 +22,8 @@ button, input[type=submit] {
     padding: 0 10px;
     color: white;
   }
+}
+
+a.button {
+
 }

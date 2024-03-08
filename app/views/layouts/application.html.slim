@@ -16,7 +16,6 @@ html
     = javascript_include_tag "https://accounts.google.com/gsi/client", async: true, defer: true
   body
     = render partial: "shared/banner"
-    #modal-wrapper
-      = turbo_frame_tag "modal"
+    = turbo_frame_tag "modal"
     main[id=("root-page" if @root_page)]
       = yield

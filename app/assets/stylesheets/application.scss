@@ -56,7 +56,7 @@ main {
   padding: var(--banner-height) 8px 0;
 }
 
-main#root-page, #modal-wrapper {
+main#root-page {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -144,15 +144,23 @@ main#root-page, #modal-wrapper {
   }
 }
 
-#modal-wrapper {
-  position: absolute;
-  z-index: -1;
+#modal-overlay {
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
-
-#modal {
+#modal-inner {
   position: relative;
   z-index: 2;
   width: 600px;
+  padding: 30px;
   word-break: break-word;
   border-radius: 6px;
   background-color: var(--body-background);
@@ -163,10 +171,6 @@ main#root-page, #modal-wrapper {
   }
   @media screen and (max-width: 400px) {
     width: 300px;
-  }
-
-  #modal-inner {
-    padding: 30px;
   }
 
   .top-right {
