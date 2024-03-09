@@ -1,2 +1,7 @@
 .recipe
-  .recipe-name= recipe.name
+  .field.name= recipe.name
+  .field.actions
+    = link_to edit_recipe_path(recipe), class: "icon", data: { turbo_frame: "modal" }
+      i.fa-solid.fa-pen
+    = link_to recipe_path(recipe), method: :del, class: "icon", data: { turbo_method: "delete" }
+      i.fa-solid.fa-trash

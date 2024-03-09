@@ -78,7 +78,7 @@ main#root-page {
 
   .left, .right {
     content: '';
-    border: 1px solid black;
+    border: 1px solid var(--black);
     position: absolute;
     height: 100%;
 
@@ -136,7 +136,7 @@ main#root-page {
     left: 10%;
     right: 10%;
     background-color: var(--overlay-background);
-    border: 1px solid black;
+    border: 1px solid var(--black);
     border-radius: 2px;
     display: flex;
     justify-content: center;
@@ -181,5 +181,36 @@ main#root-page {
 
   h1 {
     font-size: 1.5em;
+  }
+}
+
+#recipe-list {
+  margin: 10px;
+  display: flex;
+  flex-flow: column nowrap;
+  min-width: 400px;
+  width: 50%;
+
+  .recipe, .header-row {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 8px;
+
+    @media screen and (max-width: 800px) {
+      font-size: 1.5em;
+      padding: 15px;
+    }
+  }
+
+  .header-row {
+    font-weight: var(--font-weight-bold);
+    border-bottom: 2px solid var(--black);
+  }
+
+  .recipe:nth-child(n+3) {
+    border-top: 1px solid var(--pale-border);
   }
 }

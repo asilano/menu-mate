@@ -10,4 +10,10 @@
   --banner-height: 50px;
   --banner-background: #{$banner-background};
   --banner-highlight: #{color.scale($banner-background, $lightness: 20%)};
+
+  --pale-border: #bbbbbb;
+  --mid-fg-grey: #888888;
+  --black: #111111;
+
+  --font-weight-bold: 600;
 }

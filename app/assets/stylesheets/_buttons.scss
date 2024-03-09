@@ -1,15 +1,22 @@
 button, input[type=submit], .button {
+  border: 1px solid #808080;
   border-radius: 2px;
+  --button-fg-colour: var(--black);
+
+  &:hover {
+    border-color: var(--button-fg-colour);
+  }
 
   &.large {
-    height: 3em;
+    border-width: 2px;
+    font-size: 1.2em;
+    height: 3rem;
     &.square {
-      width: 3em;
+      width: 3rem;
     }
   }
   &.hollow {
     background: none;
-    border: 2px solid black;
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.1);
@@ -25,5 +32,29 @@ button, input[type=submit], .button {
 }
 
 a.button {
+  align-items: center;
+  background-color: var(--body-background);
+  --button-fg-colour: blue;
+  color: var(--button-fg-colour);
+  display: inline-flex;
+  flex-shrink: 0;
+  font-weight: var(--font-weight-bold);
+  height: 1.875em;
+  justify-content: center;
+  padding: 0 10px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: all .2s;
+  vertical-align: top;
+  white-space: nowrap;
+}
 
+a.icon {
+  color: var(--mid-fg-grey);
+  margin: 5px;
+
+  &:hover {
+    color: var(--black);
+  }
 }
