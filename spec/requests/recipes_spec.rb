@@ -69,6 +69,30 @@ RSpec.describe "Recipes", type: :request do
         end
       end
     end
+
+    describe "DELETE /recipe/:id" do
+      context "for a recipe that exists" do
+        let!(:recipe) { create(:recipe, user:) }
+
+        it "returns success" do
+          delete recipe_path(recipe), as: :turbo_stream
+          expect(response).to have_http_status :success
+        end
+
+        it "removes the recipe" do
+          expect { delete recipe_path(recipe), as: :turbo_stream }.to change { Recipe.count }.by(-1)
+          expect(Recipe.find_by(id: recipe.id)).to be_nil
+        end
+      end
+
+      context "for a recipe that doesn't exist" do
+        it "redirects to /recipes" do
+          Recipe.destroy_all
+          delete recipe_path(1), as: :turbo_stream
+          expect(response).to redirect_to(recipes_path)
+        end
+      end
+    end
   end
 
   context "when not logged in" do

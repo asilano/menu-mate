@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_turbo_frame, only: [:new]
+  before_action :load_recipe, only: [:destroy] # %i[edit update destroy]
 
   def index
     @recipes = current_user.recipes
@@ -23,7 +24,16 @@ class RecipesController < ApplicationController
     end
   end
 
+  def destroy
+    return redirect_to action: :index unless @recipe
+    @recipe.destroy
+  end
+
   private
+
+  def load_recipe
+    @recipe = current_user.recipes.find_by(id: params[:id])
+  end
 
   def recipe_params
     params.require(:recipe).permit([
