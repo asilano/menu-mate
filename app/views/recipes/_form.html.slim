@@ -9,9 +9,11 @@
 
   .field
     .label= f.label :name
-    .input= f.text_field :name, placeholder: "Beef in Beer"
+    .input= f.text_field :name, placeholder: "Beef in Beer", autofocus: true
 
   .button-area
     - if !@recipe.persisted?
       = f.submit "Save and add another", name: "another", class: "large primary"
       = f.submit "Save and close", name: "save", class: "large primary"
+    - else
+      = f.submit "Save", class: "large primary"

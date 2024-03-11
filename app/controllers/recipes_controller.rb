@@ -1,10 +1,10 @@
 class RecipesController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_turbo_frame, only: [:new]
-  before_action :load_recipe, only: [:destroy] # %i[edit update destroy]
+  before_action :ensure_turbo_frame, only: [:new, :edit]
+  before_action :load_recipe, only: %i[edit update destroy]
 
   def index
-    @recipes = current_user.recipes
+    @recipes = current_user.recipes.order(:id)
     @recipe = Recipe.build
   end
 
@@ -21,6 +21,15 @@ class RecipesController < ApplicationController
     else
       @recipe = @new_recipe
       render :new
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if !@recipe.update(recipe_params)
+      render :edit
     end
   end
 

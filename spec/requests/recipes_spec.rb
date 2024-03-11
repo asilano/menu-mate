@@ -70,6 +70,49 @@ RSpec.describe "Recipes", type: :request do
       end
     end
 
+    describe "PUT /recipes" do
+      let!(:recipe) { create(:recipe, name: "Bolognese", user:) }
+      describe "with valid params" do
+        let(:params) do
+          {
+            recipe: {
+              name: "Tiramisu"
+            }
+          }
+        end
+
+        it "returns success" do
+          put recipe_path(recipe), params: params, as: :turbo_stream
+          expect(response).to have_http_status :success
+        end
+
+        it "edits the recipe" do
+          put recipe_path(recipe), params:, as: :turbo_stream
+          expect(recipe.reload.name).to eq "Tiramisu"
+        end
+      end
+
+      describe "with invalid params" do
+        let(:params) do
+          {
+            recipe: {
+              name: ""
+            }
+          }
+        end
+
+        it "returns success" do
+          put recipe_path(recipe), params: params, as: :turbo_stream
+          expect(response).to have_http_status :success
+        end
+
+        it "does not modify the recipe" do
+          put recipe_path(recipe), params:, as: :turbo_stream
+          expect(recipe.reload.name).to eq "Bolognese"
+        end
+      end
+    end
+
     describe "DELETE /recipe/:id" do
       context "for a recipe that exists" do
         let!(:recipe) { create(:recipe, user:) }
