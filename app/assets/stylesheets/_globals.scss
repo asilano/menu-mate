@@ -13,7 +13,12 @@
 
   --pale-border: #bbbbbb;
   --mid-fg-grey: #888888;
+  --mid-bg-grey: #dddddd;
   --black: #111111;
 
   --font-weight-bold: 600;
+}
+
+.hidden {
+  visibility: hidden;
 }

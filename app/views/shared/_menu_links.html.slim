@@ -1,0 +1,6 @@
+.menu-group data={ controller: "main-menu" }
+  a.menu-button href="#" data={ action: "main-menu#showHide" }
+    i.fa-solid.fa-bars data={ "main-menu-target": "toggleButton" }
+  .menu.hidden data={ "main-menu-target": "menuLinks" }
+    = link_to "Home", root_path, class: "menu-link"
+    = link_to "Recipes", recipes_path, class: "menu-link"

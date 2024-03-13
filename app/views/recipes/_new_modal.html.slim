@@ -1,7 +1,7 @@
 = turbo_frame_tag "modal" do
-  #modal-overlay[data={ controller: "turbo-modal",
-                        action: "close->turbo-modal#hideModal keyup@window->turbo-modal#handleKeypress click@window->turbo-modal#handleClick" }]
-    #modal-inner[data-turbo-modal-target="modalInner"]
+  #modal-overlay data={ controller: "turbo-modal",
+                        action: "close->turbo-modal#hideModal keyup@window->turbo-modal#handleKeypress click@window->turbo-modal#handleClick" }
+    #modal-inner data-turbo-modal-target="modalInner"
       = button_tag data: { action: "turbo-modal#hideModal" }, type: "button", class: "large square hollow top-right" do
         i.fa-solid.fa-xmark.fa-xl
       h1 Add Recipe

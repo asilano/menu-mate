@@ -4,5 +4,8 @@
 
 import { application } from "./application"
 
+import MainMenuController from "./main_menu_controller"
+application.register("main-menu", MainMenuController)
+
 import TurboModalController from "./turbo_modal_controller"
 application.register("turbo-modal", TurboModalController)

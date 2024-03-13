@@ -1,6 +1,8 @@
 #banner
-  - if user_signed_in?
-    = form_with url: logins_path, method: :delete, class: "logout-form", data: { turbo: false } do |f|
-      = f.submit "Log out", class: "logout"
-    - if current_user.picture_uri
-      img.google-profile-img src=current_user.picture_uri referrerpolicy="no-referrer"
+  = render "shared/menu_links"
+  .user-info
+    - if user_signed_in?
+      = form_with url: logins_path, method: :delete, class: "logout-form", data: { turbo: false } do |f|
+        = f.submit "Log out", class: "logout"
+      - if current_user.picture_uri
+        img.google-profile-img src=current_user.picture_uri referrerpolicy="no-referrer"
