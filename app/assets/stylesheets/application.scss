@@ -89,6 +89,8 @@ body {
 }
 
 main {
+  display: flex;
+  flex-direction: column;
   padding: var(--banner-height) 8px 0;
 }
 
@@ -249,4 +251,8 @@ main#root-page {
   .recipe:nth-child(n+3) {
     border-top: 1px solid var(--pale-border);
   }
+}
+
+#menu-plan {
+  width: 75%;
 }

@@ -1,5 +1,6 @@
 h1 Recipes
-= link_to "Add new recipe", new_recipe_path, class: "button", data: { turbo_frame: "modal" }
+.on-page-controls
+  = link_to "Add new recipe", new_recipe_path, class: "button", data: { turbo_frame: "modal" }
 #recipe-list
   .header-row
     .field.name Name

@@ -1,7 +1,9 @@
 button, input[type=submit], .button {
+  background-color: var(--body-background);
   border: 1px solid #808080;
   border-radius: 2px;
   --button-fg-colour: var(--black);
+  color: var(--button-fg-colour);
 
   &:hover {
     border-color: var(--button-fg-colour);

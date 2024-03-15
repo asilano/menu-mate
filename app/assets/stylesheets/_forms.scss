@@ -1,4 +1,4 @@
-input[type=text] {
+input[type=text], input[type=number] {
   height: 30px;
   width: 75%
 }
@@ -19,5 +19,23 @@ input[type=text] {
   h2 {
     font-size: 1em;
     margin: 0;
+  }
+}
+
+.field {
+  &.short {
+    width: 50%;
+  }
+}
+
+.input-inline-button {
+  display: flex;
+  .input {
+    flex-grow: 1;
+    margin-right: 10px;
+
+    input {
+      width: 100%;
+    }
   }
 }
