@@ -6,7 +6,7 @@
 
 .recipe-book-logo
   = link_to "Recipe Collection", recipes_path, class: "left"
-  .right Plan a Menu
+  = link_to "Plan a Menu", new_menu_plan_path, class: "right"
   - unless user_signed_in?
     .blocker
       .overlay

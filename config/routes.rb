@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :menu_plans, only: :new
   resource "logins", only: [:new, :destroy] do
     post :google
   end
