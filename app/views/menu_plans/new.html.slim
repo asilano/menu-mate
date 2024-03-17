@@ -1,8 +1,11 @@
 #menu-plan
   h1 Plan a menu
-  = form_with url: new_menu_plan_path do |f|
+  = form_with url: build_menu_plans_path do |f|
     .field.short
       .label= f.label :num_days, "Number of days"
       .input-inline-button
         .input= f.number_field :num_days
-        = link_to "Build plan", new_menu_plan_path, class: "button"
+        = f.submit "Start plan", class: "inline-button"
+  hr
+  #plan-days
+    = render "menu_plan"

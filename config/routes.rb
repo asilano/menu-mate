@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
-  resources :menu_plans, only: :new
   resource "logins", only: [:new, :destroy] do
     post :google
   end
 
   resources :recipes
+  resources :menu_plans, only: :new do
+    collection do
+      post :build
+    end
+  end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
