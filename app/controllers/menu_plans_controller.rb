@@ -1,6 +1,8 @@
 class MenuPlansController < ApplicationController
   include Typecasts
 
+  before_action :authenticate_user!
+
   def new
     build_blank_plan
   end

@@ -22,9 +22,9 @@ RSpec.describe "Recipes", type: :request do
         it "lists all the recipes" do
           get recipes_path
           expect(response.body).to include "Recipes"
-          expect(response.body).to include("Arancini")
-          expect(response.body).to include("Borst")
-          expect(response.body).to include("Crème Brulée")
+          expect(response.body).to include "Arancini"
+          expect(response.body).to include "Borst"
+          expect(response.body).to include "Crème Brulée"
         end
       end
     end
