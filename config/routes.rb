@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :recipes
   resources :menu_plans, only: :new do
     collection do
-      post :build
+      post :update_plan
     end
   end
 
