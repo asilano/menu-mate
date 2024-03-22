@@ -1,0 +1,7 @@
+.tag id=dom_id(tag)
+  .field.name id=dom_id(tag, "name") = tag.name
+  .field.actions
+    = link_to edit_tag_path(tag), id: dom_id(tag, "edit"), class: "icon", data: { turbo_frame: "modal" }
+      i.fa-solid.fa-pen
+    = link_to tag_path(tag), id: dom_id(tag, "delete"), class: "icon", data: { turbo_method: "delete", turbo_confirm: "Really delete #{tag.name}?" }
+      i.fa-solid.fa-trash

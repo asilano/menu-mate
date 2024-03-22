@@ -1,0 +1,4 @@
+= turbo_stream.replace dom_id(@tag) do
+  = render partial: "tag", object: @tag
+
+= turbo_stream.dispatch "close", target: "modal-inner"

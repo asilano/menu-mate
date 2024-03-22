@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :active_sessions, dependent: :destroy
   has_many :recipes, dependent: :destroy
+  has_many :tags, dependent: :destroy
 
   validates :google_userid, presence: true
 

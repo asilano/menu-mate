@@ -1,11 +1,10 @@
 class RecipesController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_turbo_frame, only: [:new, :edit]
+  before_action -> { ensure_turbo_frame(recipes_path) }, only: [:new, :edit]
   before_action :load_recipe, only: %i[edit update destroy]
 
   def index
     @recipes = current_user.recipes.order(:id)
-    @recipe = Recipe.build
   end
 
   def new
@@ -48,9 +47,5 @@ class RecipesController < ApplicationController
     params.require(:recipe).permit([
       :name
     ])
-  end
-
-  def ensure_turbo_frame
-    redirect_to recipes_path unless turbo_frame_request?
   end
 end

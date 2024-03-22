@@ -1,0 +1,8 @@
+= turbo_stream.append "tag-list" do
+  = render partial: "tag", object: @new_tag
+
+- if @another
+  = turbo_stream.replace "modal" do
+    = render partial: "new_modal"
+- else
+  = turbo_stream.dispatch "close", target: "modal-inner"

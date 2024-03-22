@@ -1,0 +1,9 @@
+h1 Tags
+.on-page-controls
+  = link_to "Add new tag", new_tag_path, class: "button", data: { turbo_frame: "modal" }
+  = link_to "Manage recipes", recipes_path, class: "button"
+#tag-list
+  .header-row
+    .field.name Name
+    .field.actions
+  = render partial: "tag", collection: @tags

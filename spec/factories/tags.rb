@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :recipe do
-    name { "Trout a la Creme" }
+  factory :tag do
+    name { "vegetarian" }
     association :user
   end
 end

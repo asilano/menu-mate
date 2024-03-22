@@ -184,6 +184,12 @@ main#root-page {
   }
 }
 
+.on-page-controls {
+  a {
+    margin-right: 10px;
+  }
+}
+
 #modal-overlay {
   z-index: 10;
   background: rgba(0, 0, 0, 0.1);
@@ -224,14 +230,14 @@ main#root-page {
   }
 }
 
-#recipe-list {
+#recipe-list, #tag-list {
   margin: 10px;
   display: flex;
   flex-flow: column nowrap;
   min-width: 400px;
   width: 50%;
 
-  .recipe, .header-row {
+  .recipe, .tag, .header-row {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -250,8 +256,10 @@ main#root-page {
     border-bottom: 2px solid var(--black);
   }
 
-  .recipe:nth-child(n+3) {
-    border-top: 1px solid var(--pale-border);
+  .recipe, .tag {
+    &:nth-child(n+3) {
+      border-top: 1px solid var(--pale-border);
+    }
   }
 }
 
