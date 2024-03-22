@@ -1,3 +1,7 @@
 .plan-day
   .title Day #{n+1}
-  .meal= @meals[n].name if @meals
+  .meal
+    - if name = @meals&.at(n)&.name
+      = name
+    - else
+      strong No suitable recipe

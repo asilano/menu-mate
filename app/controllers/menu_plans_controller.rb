@@ -22,5 +22,6 @@ class MenuPlansController < ApplicationController
 
   def build_blank_plan
     @days = params.dig(:num_days)&.to_i || 7
+    @meals = [Recipe.new(name: "")] * @days
   end
 end
