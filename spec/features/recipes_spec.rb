@@ -7,6 +7,9 @@ RSpec.feature "recipes", js: true do
   let!(:zabaglione) { create(:recipe, user:, name: "Zabaglione") }
   let!(:quince_jam) { create(:recipe, user:, name: "Quince jam") }
   let!(:lemon_cake) { create(:recipe, user:, name: "Lemon cake") }
+  let!(:quick_tag) { create(:tag, user:, name: "quick") }
+  let!(:vegetarian_tag) { create(:tag, user:, name: "vegetarian") }
+  let!(:vegan_tag) { create(:tag, user:, name: "vegan") }
 
   before do
     allow(Current).to receive(:user).and_return(user)
@@ -44,10 +47,17 @@ RSpec.feature "recipes", js: true do
       expect(page).to have_css(".recipe:last-child .name", text: "Macaroni cheese")
 
       fill_in("Name", with: "Apple pie")
+      check("quick")
+      check("vegan")
       click_on("Save and close")
 
       expect(page).not_to have_css("#modal div")
       expect(page).to have_css(".recipe:last-child .name", text: "Apple pie")
+
+      find("##{dom_id(Recipe.last, "edit")}").click
+      expect(page).to have_checked_field("quick")
+      expect(page).to have_checked_field("vegan")
+      expect(page).to have_unchecked_field("vegetarian")
     end
 
     it "lets you edit and destroy recipes" do
@@ -55,10 +65,19 @@ RSpec.feature "recipes", js: true do
 
       find("##{dom_id(zabaglione, "edit")}").click
       fill_in("Name", with: "Venison stew")
+      check("vegetarian")
+      check("vegan")
       click_on("Save")
 
       expect(page).not_to have_css("#modal div")
       expect(page).to have_css("##{dom_id(zabaglione, "name")}", text: "Venison stew")
+
+      find("##{dom_id(zabaglione, "edit")}").click
+      expect(page).to have_unchecked_field("quick")
+      expect(page).to have_checked_field("vegan")
+      expect(page).to have_checked_field("vegetarian")
+
+      # Close the modal
 
       find("##{dom_id(lemon_cake, "edit")}").click
       fill_in("Name", with: "")

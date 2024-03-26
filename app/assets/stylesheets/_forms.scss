@@ -43,3 +43,18 @@ input[type=text], input[type=number] {
     height: 30px;
   }
 }
+
+fieldset.checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 5px;
+
+  .tag-checkbox {
+    flex: 0 0 33%;
+    display: flex;
+    align-items: center;
+    label {
+      margin-left: 5px;
+    }
+  }
+}

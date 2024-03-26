@@ -31,10 +31,14 @@ RSpec.describe "Recipes", type: :request do
 
     describe "POST /recipes" do
       describe "with valid params" do
+        let!(:quick_tag) { create(:tag, user:, name: "quick") }
+        let!(:vegetarian_tag) { create(:tag, user:, name: "vegetarian") }
+        let!(:vegan_tag) { create(:tag, user:, name: "vegan") }
         let(:params) do
           {
             recipe: {
-              name: "Tiramisu"
+              name: "Tiramisu",
+              tag_ids: [quick_tag.id, vegan_tag.id]
             }
           }
         end
@@ -47,6 +51,7 @@ RSpec.describe "Recipes", type: :request do
         it "creates a new recipe" do
           expect { post recipes_path, params:, as: :turbo_stream }.to change { Recipe.count }.by 1
           expect(Recipe.last.name).to eq "Tiramisu"
+          expect(Recipe.last.tags).to match [quick_tag, vegan_tag]
         end
       end
 
@@ -71,12 +76,16 @@ RSpec.describe "Recipes", type: :request do
     end
 
     describe "PUT /recipes" do
+      let!(:quick_tag) { create(:tag, user:, name: "quick") }
+      let!(:vegetarian_tag) { create(:tag, user:, name: "vegetarian") }
+      let!(:vegan_tag) { create(:tag, user:, name: "vegan") }
       let!(:recipe) { create(:recipe, name: "Bolognese", user:) }
       describe "with valid params" do
         let(:params) do
           {
             recipe: {
-              name: "Tiramisu"
+              name: "Tiramisu",
+              tag_ids: [vegetarian_tag.id, quick_tag.id]
             }
           }
         end
@@ -89,6 +98,7 @@ RSpec.describe "Recipes", type: :request do
         it "edits the recipe" do
           put recipe_path(recipe), params:, as: :turbo_stream
           expect(recipe.reload.name).to eq "Tiramisu"
+          expect(recipe.tags.map(&:id)).to contain_exactly(vegetarian_tag.id, quick_tag.id)
         end
       end
 
@@ -96,7 +106,8 @@ RSpec.describe "Recipes", type: :request do
         let(:params) do
           {
             recipe: {
-              name: ""
+              name: "",
+              tag_ids: [quick_tag.id]
             }
           }
         end
@@ -109,6 +120,7 @@ RSpec.describe "Recipes", type: :request do
         it "does not modify the recipe" do
           put recipe_path(recipe), params:, as: :turbo_stream
           expect(recipe.reload.name).to eq "Bolognese"
+          expect(recipe.tags).to be_empty
         end
       end
     end

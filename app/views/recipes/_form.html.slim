@@ -10,6 +10,12 @@
   .field
     .label= f.label :name
     .input= f.text_field :name, placeholder: "Beef in Beer", autofocus: true
+  fieldset.checkboxes
+    legend Tags
+    = f.collection_check_boxes :tag_ids, @tags, :id, :name do |tag|
+      .tag-checkbox
+        = tag.check_box
+        = tag.label
 
   .button-area
     - if !@recipe.persisted?

@@ -1,7 +1,10 @@
 class RecipesController < ApplicationController
+  include TagHandling
+
   before_action :authenticate_user!
   before_action -> { ensure_turbo_frame(recipes_path) }, only: [:new, :edit]
   before_action :load_recipe, only: %i[edit update destroy]
+  before_action :load_tags, only: %i[new create edit update]
 
   def index
     @recipes = current_user.recipes.order(:id)
@@ -45,7 +48,8 @@ class RecipesController < ApplicationController
 
   def recipe_params
     params.require(:recipe).permit([
-      :name
+      :name,
+      tag_ids: []
     ])
   end
 end
