@@ -1,7 +1,7 @@
-= form_with url: update_plan_menu_plans_path do |f|
+= form_with url: update_plan_menu_plans_path, data: { controller: "menu-plan-form" } do |f|
   = f.hidden_field :blank_plan, value: false
   = f.hidden_field :num_days, value: @days
   = f.submit "Fill plan"
   #plan-days
     - @days.times do |n|
-      = render "plan_day", n:
+      = render "plan_day", n:, f:

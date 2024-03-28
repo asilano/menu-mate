@@ -1,0 +1,6 @@
+fieldset.checkboxes
+  legend Tags
+  = f.collection_check_boxes :tag_ids, @tags, :id, :name do |tag|
+    .tag-checkbox
+      = tag.check_box
+      = tag.label

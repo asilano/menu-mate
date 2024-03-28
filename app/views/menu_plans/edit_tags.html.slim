@@ -4,5 +4,6 @@
     #modal-inner data-turbo-modal-target="modalInner"
       = button_tag data: { action: "turbo-modal#hideModal" }, type: "button", id: "modal-close", class: "large square hollow top-right" do
         i.fa-solid.fa-xmark.fa-xl
-      h1 Add Recipe
-      = render "form"
+      h1 Edit tags for day #{@day + 1}
+      = form_with url: "/foo" do |f|
+        = render "shared/tag_checkboxes", f:

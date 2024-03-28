@@ -49,20 +49,20 @@ RSpec.feature "menu_plans", js: true do
       expect(page).to have_css(".plan-day", count: 3)
       click_on("Fill plan")
 
-      expect(page).to have_css("#menu-plan", text: "Day 1\nSyllabub\nDay 2\nLemon cake\nDay 3\nZabaglione")
+      expect(page).to have_css("#menu-plan", text: "Day 1\nTags\nSyllabub\nDay 2\nTags\nLemon cake\nDay 3\nTags\nZabaglione")
     end
 
     it "fills a long plan with randomised recipes, then blanks" do
       expect(page).to have_css(".plan-day", count: 7)
       click_on("Fill plan")
 
-      expect(page).to have_css(".plan-day", text: "Day 1\nSyllabub")
-      expect(page).to have_css(".plan-day", text: "Day 2\nLemon cake")
-      expect(page).to have_css(".plan-day", text: "Day 3\nZabaglione")
-      expect(page).to have_css(".plan-day", text: "Day 4\nQuince jam")
-      expect(page).to have_css(".plan-day", text: "Day 5\nTiramisu")
-      expect(page).to have_css(".plan-day", text: "Day 6\nNo suitable recipe")
-      expect(page).to have_css(".plan-day", text: "Day 7\nNo suitable recipe")
+      expect(page).to have_css(".plan-day", text: "Day 1\nTags\nSyllabub")
+      expect(page).to have_css(".plan-day", text: "Day 2\nTags\nLemon cake")
+      expect(page).to have_css(".plan-day", text: "Day 3\nTags\nZabaglione")
+      expect(page).to have_css(".plan-day", text: "Day 4\nTags\nQuince jam")
+      expect(page).to have_css(".plan-day", text: "Day 5\nTags\nTiramisu")
+      expect(page).to have_css(".plan-day", text: "Day 6\nTags\nNo suitable recipe")
+      expect(page).to have_css(".plan-day", text: "Day 7\nTags\nNo suitable recipe")
     end
   end
 end

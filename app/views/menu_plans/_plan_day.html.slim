@@ -1,5 +1,10 @@
 .plan-day
-  .title Day #{n+1}
+  div data={ "menu-plan-form-target": "planDayTags" }
+    - @day_tags[n].each do |tag_id|
+      = f.hidden_field "day_#{n}_tags[]", value: tag_id
+  .title
+    span Day #{n+1}
+    = link_to "Tags", edit_tags_menu_plans_path(day: n), class: "button", data: { turbo_frame: "modal" }
   .meal
     - if name = @meals&.at(n)&.name
       = name

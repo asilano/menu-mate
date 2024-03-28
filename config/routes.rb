@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :menu_plans, only: :new do
     collection do
       post :update_plan
+      get "edit_tags/:day", to: "menu_plans#edit_tags", as: :edit_tags
     end
   end
   resources :tags

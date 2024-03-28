@@ -78,6 +78,8 @@ RSpec.feature "recipes", js: true do
       expect(page).to have_checked_field("vegetarian")
 
       # Close the modal
+      find("#modal-close").click
+      expect(page).not_to have_css("#modal div")
 
       find("##{dom_id(lemon_cake, "edit")}").click
       fill_in("Name", with: "")

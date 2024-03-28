@@ -6,6 +6,7 @@ button, input[type=submit], .button {
   border-radius: 2px;
   color: var(--button-fg-colour);
   display: inline-flex;
+  font-family: var(--main-font-stack);
   flex-shrink: 0;
   height: 1.875em;
   justify-content: center;
@@ -44,6 +45,10 @@ button, input[type=submit], .button {
     padding: 0 10px;
     color: white;
   }
+}
+
+a.button {
+  font-size: 16px;
 }
 
 a.icon {
