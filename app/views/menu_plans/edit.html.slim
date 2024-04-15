@@ -1,11 +1,11 @@
 #menu-planner
   h1 Plan a menu
-  = form_with url: update_plan_menu_plans_path do |f|
-    = f.hidden_field :blank_plan, value: true
+  = form_with model: @menu_plan, url: menu_plan_path do |f|
+    = hidden_field_tag :blank_plan, value: true
     .field.short
       .label= f.label :num_days, "Number of days"
       .input-inline-button
-        .input= f.number_field :num_days
+        .input= f.number_field :num_days, value: @days
         = f.submit "Start plan", class: "inline-button"
   hr
   #menu-plan data={controller: "menu-plan", "menu-plan-count-value": @days}

@@ -4,11 +4,14 @@ Rails.application.routes.draw do
   end
 
   resources :recipes
-  resources :menu_plans, only: :new do
-    collection do
-      post :update_plan
-      get "edit_tags/:day", to: "menu_plans#edit_tags", as: :edit_tags
-    end
+  # resources :menu_plans, only: :new do
+  #   collection do
+  #     post :update_plan
+  #     get "edit_tags/:day", to: "menu_plans#edit_tags", as: :edit_tags
+  #   end
+  # end
+  resource :menu_plan, only: %i[new edit update] do
+    get "edit_tags/:day", to: "menu_plans#edit_tags", as: :edit_tags_for
   end
   resources :tags
 

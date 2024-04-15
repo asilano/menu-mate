@@ -9,11 +9,33 @@ RSpec.describe "MenuPlans", type: :request do
     describe "GET /menu_plans/new" do
       it "returns success" do
         get new_menu_plan_path
-        expect(response).to have_http_status(:success)
+        expect(response).to redirect_to(edit_menu_plan_path)
       end
 
+      context "without an existing plan" do
+        before { MenuPlan.destroy_all }
+
+        it "creates a menu plan for the current user" do
+          expect { get new_menu_plan_path }.to change { MenuPlan.count }.from(0).to(1)
+          expect(user.menu_plan).not_to be_nil
+        end
+      end
+
+      context "with an existing plan" do
+        let!(:menu_plan) { create(:menu_plan, user:) }
+
+        it "replaces the current user's menu plan" do
+          expect { get new_menu_plan_path }.to not_change { MenuPlan.count }
+            .and change { user.reload.menu_plan.id }
+        end
+      end
+    end
+
+    describe "GET /menu_plans/edit" do
+      let!(:menu_plan) { create(:menu_plan, user:) }
+
       it "has a template for exactly 7 days" do
-        get new_menu_plan_path
+        get edit_menu_plan_path
         1.upto(7) do |n|
           expect(response.body).to include "Day #{n}"
         end
@@ -22,12 +44,14 @@ RSpec.describe "MenuPlans", type: :request do
       end
     end
 
-    describe "POST /menu_plans/update_plan" do
+    describe "PUT /menu_plan" do
       describe "when blank_plan is true" do
         it "has a template for the specified days" do
-          post update_plan_menu_plans_path, params: {
-            num_days: 5,
-            blank_plan: true
+          put menu_plan_path, params: {
+            blank_plan: true,
+            menu_plan: {
+              num_days: 5
+            }
           }, as: :turbo_stream
 
           1.upto(5) do |n|
@@ -55,7 +79,7 @@ RSpec.describe "MenuPlans", type: :request do
         end
 
         it "has a template for the specified days" do
-          post update_plan_menu_plans_path, params: {
+          put menu_plan_path, params: {
             num_days: 3,
             blank_plan: false
           }, as: :turbo_stream

@@ -24,11 +24,11 @@ RSpec.feature "menu_plans", js: true do
   end
 
   describe "setting up a new plan" do
-    before { visit "/menu_plans/new" }
+    before { visit "/menu_plan/new" }
 
     it "renders a form and an initial 7 days, then handles the form" do
       expect(page).to have_title("Menu Mate - Menu Plan")
-      expect(page).to have_css("form #num_days")
+      expect(page).to have_css("form #menu_plan_num_days")
       within("#menu-plan") do
         expect(page).to have_css(".plan-day", count: 7)
       end
@@ -36,7 +36,7 @@ RSpec.feature "menu_plans", js: true do
       fill_in("Number of days", with: 5)
       click_on("Start plan")
 
-      expect(page).to have_css("form #num_days")
+      expect(page).to have_css("form #menu_plan_num_days")
       within("#menu-plan") do
         expect(page).to have_css(".plan-day", count: 5)
       end
