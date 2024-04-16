@@ -39,11 +39,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_213752) do
 
   create_table "taggings", force: :cascade do |t|
     t.bigint "tag_id", null: false
-    t.bigint "recipe_id", null: false
+    t.string "taggable_type", null: false
+    t.bigint "taggable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["recipe_id"], name: "index_taggings_on_recipe_id"
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
+    t.index ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -68,7 +69,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_213752) do
   add_foreign_key "active_sessions", "users", on_delete: :cascade
   add_foreign_key "menu_plans", "users"
   add_foreign_key "recipes", "users", on_delete: :cascade
-  add_foreign_key "taggings", "recipes"
   add_foreign_key "taggings", "tags"
   add_foreign_key "tags", "users"
 end
