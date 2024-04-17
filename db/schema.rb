@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_13_213752) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_16_221317) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +26,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_213752) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_menu_plans_on_user_id"
+  end
+
+  create_table "plan_days", force: :cascade do |t|
+    t.bigint "menu_plan_id", null: false
+    t.integer "day_number"
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["menu_plan_id"], name: "index_plan_days_on_menu_plan_id"
+    t.index ["recipe_id"], name: "index_plan_days_on_recipe_id"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -68,6 +78,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_213752) do
 
   add_foreign_key "active_sessions", "users", on_delete: :cascade
   add_foreign_key "menu_plans", "users"
+  add_foreign_key "plan_days", "menu_plans"
+  add_foreign_key "plan_days", "recipes"
   add_foreign_key "recipes", "users", on_delete: :cascade
   add_foreign_key "taggings", "tags"
   add_foreign_key "tags", "users"

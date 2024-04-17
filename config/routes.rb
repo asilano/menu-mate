@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :plan_days
   resource "logins", only: [:new, :destroy] do
     post :google
   end
