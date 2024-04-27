@@ -21,6 +21,11 @@ RSpec.feature "menu_plans", js: true do
       quince_jam,
       tiramisu
     ])
+    # allow(recipes_stub).to receive_message_chain(:where, :not, :shuffle).and_return ([
+    #   tiramisu,
+    #   quince_jam,
+
+    # ])
   end
 
   describe "setting up a new plan" do

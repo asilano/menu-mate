@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_221317) do
   create_table "plan_days", force: :cascade do |t|
     t.bigint "menu_plan_id", null: false
     t.integer "day_number"
-    t.bigint "recipe_id", null: false
+    t.bigint "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["menu_plan_id"], name: "index_plan_days_on_menu_plan_id"

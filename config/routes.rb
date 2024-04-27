@@ -11,7 +11,11 @@ Rails.application.routes.draw do
   #     get "edit_tags/:day", to: "menu_plans#edit_tags", as: :edit_tags
   #   end
   # end
-  resource :menu_plan, only: %i[new edit update] do
+  resource :menu_plan, only: %i[new edit] do
+    member do
+      post :update_number_of_days
+      post :fill_recipes
+    end
     get "edit_tags/:day", to: "menu_plans#edit_tags", as: :edit_tags_for
   end
   resources :tags

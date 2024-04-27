@@ -1,7 +1,5 @@
-= form_with model: @menu_plan, url: menu_plan_path, data: { controller: "menu-plan-form" } do |f|
-  = f.hidden_field :blank_plan, value: false
-  = f.hidden_field :num_days, value: @days
+= form_with model: @menu_plan, url: fill_recipes_menu_plan_path, method: :post do |f|
+  = f.hidden_field :num_days, value: @menu_plan.plan_days.count
   = f.submit "Fill plan"
   #plan-days
-    - @days.times do |n|
-      = render "plan_day", n:, f:
+    = render @menu_plan.plan_days, locals: { f: }
