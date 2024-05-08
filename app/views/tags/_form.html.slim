@@ -17,3 +17,5 @@
       = f.submit "Save and close", name: "save", class: "large primary"
     - else
       = f.submit "Save", class: "large primary"
+    = button_tag class: "large negative", data: { action: "turbo-modal#hideModal" }
+      | Cancel

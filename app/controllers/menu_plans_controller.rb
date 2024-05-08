@@ -1,10 +1,8 @@
 class MenuPlansController < ApplicationController
   include Typecasts
-  include TagHandling
 
   before_action :authenticate_user!
   before_action :load_menu_plan, except: :new
-  before_action :load_tags, only: %i[edit_tags]
 
   def new
     MenuPlan.where(user: current_user).destroy_all
@@ -45,10 +43,6 @@ class MenuPlansController < ApplicationController
     end
 
     render "update"
-  end
-
-  def edit_tags
-    @day = params[:day].to_i
   end
 
   private

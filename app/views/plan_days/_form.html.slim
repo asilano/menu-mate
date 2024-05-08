@@ -1,0 +1,16 @@
+= form_for @plan_day do |f|
+  - if @plan_day.errors.any?
+    #error_explanation
+      h2
+        | #{pluralize(@plan_day.errors.count, "error")} prohibited this Day from being saved:
+      ul
+        - @plan_day.errors.full_messages.each do |msg|
+          li= msg
+
+  .field
+  = render "shared/tag_checkboxes", f:
+
+  .button-area
+    = f.submit "Save and close", name: "save", class: "large primary"
+    = button_tag class: "large negative", data: { action: "turbo-modal#hideModal" }
+      | Cancel

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :menu_plan do
-    user_id { nil }
+    association :user
     transient do
       num_days { 7 }
     end

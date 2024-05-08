@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :recipes, dependent: :destroy
   has_many :tags, dependent: :destroy
   has_one  :menu_plan, dependent: :destroy
+  has_many :plan_days, through: :menu_plan
 
   validates :google_userid, presence: true
 

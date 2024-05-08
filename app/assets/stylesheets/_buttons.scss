@@ -45,6 +45,12 @@ button, input[type=submit], .button {
     padding: 0 10px;
     color: white;
   }
+  &.negative {
+    background-color: var(--mid-red);
+    border: none;
+    padding: 0 10px;
+    color: white;
+  }
 }
 
 a.button {

@@ -1,23 +1,16 @@
 Rails.application.routes.draw do
-  resources :plan_days
   resource "logins", only: [:new, :destroy] do
     post :google
   end
 
   resources :recipes
-  # resources :menu_plans, only: :new do
-  #   collection do
-  #     post :update_plan
-  #     get "edit_tags/:day", to: "menu_plans#edit_tags", as: :edit_tags
-  #   end
-  # end
   resource :menu_plan, only: %i[new edit] do
     member do
       post :update_number_of_days
       post :fill_recipes
     end
-    get "edit_tags/:day", to: "menu_plans#edit_tags", as: :edit_tags_for
   end
+  resources :plan_days
   resources :tags
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
