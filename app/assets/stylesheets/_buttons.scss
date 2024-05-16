@@ -22,6 +22,9 @@ button, input[type=submit], .button {
   &:hover {
     border-color: var(--button-fg-colour);
   }
+  &:active {
+    background-color: var(--pressed-button-bg);
+  }
 
   &.large {
     border-width: 2px;

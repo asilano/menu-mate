@@ -5,7 +5,7 @@
       .label= f.label :num_days, "Number of days"
       .input-inline-button
         .input= f.number_field :num_days, value: @menu_plan.plan_days.count
-        = f.submit "Start plan", class: "inline-button"
+        = f.submit "Set count", class: "inline-button"
   hr
   #menu-plan data={controller: "menu-plan", "menu-plan-count-value": @menu_plan.plan_days.count}
     = render "menu_plan"

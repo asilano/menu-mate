@@ -5,6 +5,7 @@
   --body-background: #{$white};
   --overlay-background: #{color.scale($white, $lightness: 50%, $alpha: -5%)};
   --hovered-book-background: #f5f5dc;
+  --pressed-button-bg: #{color.scale($white, $lightness: -10%)};
 
   $banner-background: blue;
   --banner-height: 50px;
