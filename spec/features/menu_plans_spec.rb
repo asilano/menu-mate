@@ -39,7 +39,7 @@ RSpec.feature "menu_plans", js: true do
       end
 
       fill_in("Number of days", with: 5)
-      click_on("Start plan")
+      click_on("Set count")
 
       expect(page).to have_css("form #menu_plan_num_days")
       within("#menu-plan") do
@@ -49,7 +49,7 @@ RSpec.feature "menu_plans", js: true do
 
     it "fills a short plan with randomised recipes" do
       fill_in("Number of days", with: 3)
-      click_on("Start plan")
+      click_on("Set count")
 
       expect(page).to have_css(".plan-day", count: 3)
       click_on("Fill plan")

@@ -37,11 +37,7 @@ class MenuPlansController < ApplicationController
   end
 
   def fill_recipes
-    meals = current_user.recipes.shuffle
-    @menu_plan.plan_days.each.with_index do |plan_day, ix|
-      plan_day.update(recipe: meals[ix])
-    end
-
+    @menu_plan.fill
     render "update"
   end
 
