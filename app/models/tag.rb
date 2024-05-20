@@ -1,8 +1,9 @@
 class Tag < ApplicationRecord
   belongs_to :user
-  has_many :taggings
-  has_many :recipes, through: :taggings, source: :taggable, source_type: "Recipe"
-  has_many :plan_days, through: :taggings, source: :taggable, source_type: "PlanDay"
+  has_many :recipe_properties
+  has_many :plan_day_restrictions
+  has_many :recipes, through: :recipe_properties
+  has_many :plan_days, through: :plan_day_restrictions
 
   validates :name, presence: true
 end

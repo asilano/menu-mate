@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_16_221317) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_19_214327) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_221317) do
     t.index ["user_id"], name: "index_menu_plans_on_user_id"
   end
 
+  create_table "plan_day_restrictions", force: :cascade do |t|
+    t.bigint "tag_id", null: false
+    t.bigint "plan_day_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plan_day_id"], name: "index_plan_day_restrictions_on_plan_day_id"
+    t.index ["tag_id"], name: "index_plan_day_restrictions_on_tag_id"
+  end
+
   create_table "plan_days", force: :cascade do |t|
     t.bigint "menu_plan_id", null: false
     t.integer "day_number"
@@ -38,6 +47,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_221317) do
     t.index ["recipe_id"], name: "index_plan_days_on_recipe_id"
   end
 
+  create_table "recipe_properties", force: :cascade do |t|
+    t.bigint "tag_id", null: false
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_recipe_properties_on_recipe_id"
+    t.index ["tag_id"], name: "index_recipe_properties_on_tag_id"
+  end
+
   create_table "recipes", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "user_id", null: false
@@ -45,16 +63,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_221317) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_recipes_on_name"
     t.index ["user_id"], name: "index_recipes_on_user_id"
-  end
-
-  create_table "taggings", force: :cascade do |t|
-    t.bigint "tag_id", null: false
-    t.string "taggable_type", null: false
-    t.bigint "taggable_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["tag_id"], name: "index_taggings_on_tag_id"
-    t.index ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -78,9 +86,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_221317) do
 
   add_foreign_key "active_sessions", "users", on_delete: :cascade
   add_foreign_key "menu_plans", "users"
+  add_foreign_key "plan_day_restrictions", "plan_days"
+  add_foreign_key "plan_day_restrictions", "tags"
   add_foreign_key "plan_days", "menu_plans"
   add_foreign_key "plan_days", "recipes"
+  add_foreign_key "recipe_properties", "recipes"
+  add_foreign_key "recipe_properties", "tags"
   add_foreign_key "recipes", "users", on_delete: :cascade
-  add_foreign_key "taggings", "tags"
   add_foreign_key "tags", "users"
 end
