@@ -82,6 +82,7 @@ group :test do
   gem "cuprite"
   gem "selenium-webdriver"
   gem "rspec-rails"
+  gem "webmock"
 end
 
 gem "dartsass-rails", "~> 0.5.0"

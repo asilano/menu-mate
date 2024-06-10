@@ -1,10 +1,12 @@
 class TagsController < ApplicationController
+  include TagHandling
+
   before_action :authenticate_user!
   before_action -> { ensure_turbo_frame(tags_path) }, only: [:new, :edit]
   before_action :load_tag, only: %i[edit update destroy]
+  before_action :load_tags, only: :index
 
   def index
-    @tags = current_user.tags.order(:name)
   end
 
   def new
