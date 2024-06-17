@@ -22,9 +22,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_09_221304) do
   end
 
   create_table "leftovers", force: :cascade do |t|
-    t.string "kind"
+    t.string "name"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_leftovers_on_user_id"
   end
 
   create_table "menu_plans", force: :cascade do |t|
@@ -91,6 +93,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_09_221304) do
   end
 
   add_foreign_key "active_sessions", "users", on_delete: :cascade
+  add_foreign_key "leftovers", "users"
   add_foreign_key "menu_plans", "users"
   add_foreign_key "plan_day_restrictions", "plan_days"
   add_foreign_key "plan_day_restrictions", "tags"

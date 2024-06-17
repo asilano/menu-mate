@@ -1,0 +1,7 @@
+.leftover id=dom_id(leftover)
+  .field.name id=dom_id(leftover, "name") = leftover.name
+  .field.actions
+    = link_to edit_leftover_path(leftover), id: dom_id(leftover, "edit"), class: "icon", data: { turbo_frame: "modal" }
+      i.fa-solid.fa-pen
+    = link_to leftover_path(leftover), id: dom_id(leftover, "delete"), class: "icon", data: { turbo_method: "delete", turbo_confirm: "Really delete #{leftover.name}?" }
+      i.fa-solid.fa-trash

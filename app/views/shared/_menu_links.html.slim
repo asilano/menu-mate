@@ -4,4 +4,4 @@
   .menu.hidden data={ "main-menu-target": "menuLinks" }
     = link_to "Home", root_path, class: "menu-link"
     = link_to "Recipes", recipes_path, class: "menu-link"
-    = link_to "Menu Plan", new_menu_plan_path, class: "menu-link"
+    = link_to "Menu Plan", new_menu_plan_path, class: "menu-link", data: { turbo_prefetch: false }

@@ -230,14 +230,19 @@ main#root-page {
   }
 }
 
-#recipe-list, #tag-list {
+#list-area {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#recipe-list, #tag-list, #leftover-list {
   margin: 10px;
   display: flex;
   flex-flow: column nowrap;
   min-width: 400px;
-  width: 50%;
+  width: 40%;
 
-  .recipe, .tag, .header-row {
+  .recipe, .tag, .leftover, .header-row {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;

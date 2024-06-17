@@ -1,9 +1,18 @@
 h1 Tags
 .on-page-controls
   = link_to "Add new tag", new_tag_path, class: "button", data: { turbo_frame: "modal" }
+  = link_to "Add new leftover", new_leftover_path, class: "button", data: { turbo_frame: "modal" }
   = link_to "Manage recipes", recipes_path, class: "button"
-#tag-list
-  .header-row
-    .field.name Name
-    .field.actions
-  = render partial: "tag", collection: @tags
+#list-area
+  #tag-list
+    h2 General tags
+    .header-row
+      .field.name Name
+      .field.actions
+    = render partial: "tag", collection: @tags
+  #leftover-list
+    h2 Leftovers
+    .header-row
+      .field.name Kind
+      .field.actions
+    = render partial: "leftovers/leftover", collection: @leftovers

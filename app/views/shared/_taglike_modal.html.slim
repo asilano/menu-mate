@@ -4,5 +4,5 @@
     #modal-inner data-turbo-modal-target="modalInner"
       = button_tag data: { action: "turbo-modal#hideModal" }, type: "button", id: "modal-close", class: "large square hollow top-right" do
         i.fa-solid.fa-xmark.fa-xl
-      h1 Edit Tag
+      h1= "#{action_name.titleize} #{controller_name.singularize.titleize}"
       = render "form"

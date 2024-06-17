@@ -15,9 +15,9 @@ RSpec.feature "tags", js: true do
   describe "on the tags index page" do
     it "lists the tags" do
       visit "/tags"
-      expect(page).to have_css(".tag:nth-child(2) .name", text: "quick")
-      expect(page).to have_css(".tag:nth-child(3) .name", text: "vegan")
-      expect(page).to have_css(".tag:nth-child(4) .name", text: "vegetarian")
+      expect(page).to have_css(".tag:nth-of-type(2) .name", text: "quick")
+      expect(page).to have_css(".tag:nth-of-type(3) .name", text: "vegan")
+      expect(page).to have_css(".tag:nth-of-type(4) .name", text: "vegetarian")
     end
 
     it "lets you add tags" do
@@ -25,7 +25,7 @@ RSpec.feature "tags", js: true do
       click_link "Add new tag"
 
       within("#modal") do
-        expect(page).to have_text("Add Tag")
+        expect(page).to have_text("New Tag")
       end
       fill_in("Name", with: "chicken")
       click_on("Save and close")

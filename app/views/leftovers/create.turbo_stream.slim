@@ -1,5 +1,5 @@
-= turbo_stream.append "tag-list" do
-  = render partial: "tag", object: @new_tag
+= turbo_stream.append "leftover-list" do
+  = render partial: "leftover", object: @new_leftover
 
 - if @another
   = turbo_stream.replace "modal" do

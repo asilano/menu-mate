@@ -6,7 +6,7 @@
 
 .recipe-book-logo
   = link_to "Recipe Collection", recipes_path, class: "left"
-  = link_to "Plan a Menu", new_menu_plan_path, class: "right"
+  = link_to "Plan a Menu", new_menu_plan_path, class: "right", data: { turbo_prefetch: false }
   - unless user_signed_in?
     .blocker
       .overlay

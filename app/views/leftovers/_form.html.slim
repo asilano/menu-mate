@@ -1,0 +1,21 @@
+= form_for @leftover do |f|
+  - if @leftover.errors.any?
+    #error_explanation
+      h2
+        | #{pluralize(@leftover.errors.count, "error")} prohibited this leftover from being saved:
+      ul
+        - @leftover.errors.full_messages.each do |msg|
+          li= msg
+
+  .field
+    .label= f.label :name, "Kind"
+    .input= f.text_field :name, placeholder: "beef", autofocus: true
+
+  .button-area
+    - if !@leftover.persisted?
+      = f.submit "Save and add another", name: "another", class: "large primary"
+      = f.submit "Save and close", name: "save", class: "large primary"
+    - else
+      = f.submit "Save", class: "large primary"
+    = button_tag class: "large negative", data: { action: "turbo-modal#hideModal" }
+      | Cancel

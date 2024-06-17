@@ -1,0 +1,4 @@
+= turbo_stream.replace dom_id(@leftover) do
+  = render partial: "leftover", object: @leftover
+
+= turbo_stream.dispatch "close", target: "modal-inner"
