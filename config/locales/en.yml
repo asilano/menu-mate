@@ -28,4 +28,19 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  activerecord:
+    models:
+      leftovers_source: "Leftover"
+    attributes:
+      leftovers_source:
+        leftover: "type"
+        num_days: "number of days"
+    errors:
+      models:
+        recipe/leftovers_source:
+          format: "Leftover %{attribute} %{message}"
+        leftovers_source:
+          attributes:
+            leftover:
+              blank: "must be specified"
+              required: "must be specified"

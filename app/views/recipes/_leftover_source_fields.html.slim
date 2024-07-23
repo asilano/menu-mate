@@ -1,0 +1,16 @@
+fieldset.checkboxes.controlled-fieldset data-controller="controlled-fieldset"
+  legend Leftovers
+  = f.fields_for :leftovers_source do |lsf|
+    .control-field
+      = check_box_tag :produces_leftovers, :produces_leftovers, lsf.object&.persisted?, data: { controlled_fieldset_target: "control", action: "controlled-fieldset#update" }
+      = label_tag :produces_leftovers, "Produces leftovers"
+      = lsf.hidden_field :_destroy, data: { controlled_fieldset_target: "destroyField" }
+    .controlled-field data-controlled-fieldset-target="controlledField"
+      = lsf.collection_radio_buttons :leftover_id, @leftovers, :id, :name do |leftover|
+        .leftover-checkbox
+          = leftover.radio_button
+          = leftover.label
+    .controlled-field data-controlled-fieldset-target="controlledField"
+      .field.short
+        = lsf.label :num_days, "For how many days:"
+        = lsf.number_field :num_days
