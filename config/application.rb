@@ -23,5 +23,9 @@ module MenuMate
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Allow overriding of full_message format in i18n files - thereby allowing
+    # custom error messages ignoring the "%{nested-attribute}" prefix where needed.
+    config.active_model.i18n_customize_full_message = true
   end
 end

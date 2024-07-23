@@ -10,6 +10,8 @@ RSpec.feature "recipes", js: true do
   let!(:quick_tag) { create(:tag, user:, name: "quick") }
   let!(:vegetarian_tag) { create(:tag, user:, name: "vegetarian") }
   let!(:vegan_tag) { create(:tag, user:, name: "vegan") }
+  let!(:beef_leftovers) { create(:leftover, user:, name: "beef") }
+  let!(:pork_leftovers) { create(:leftover, user:, name: "pork") }
 
   before do
     allow(Current).to receive(:user).and_return(user)
@@ -49,6 +51,9 @@ RSpec.feature "recipes", js: true do
       fill_in("Name", with: "Apple pie")
       check("quick")
       check("vegan")
+      check("Produces leftovers")
+      choose("beef")
+      fill_in("For how many days:", with: 3)
       click_on("Save and close")
 
       expect(page).not_to have_css("#modal div")
@@ -58,6 +63,9 @@ RSpec.feature "recipes", js: true do
       expect(page).to have_checked_field("quick")
       expect(page).to have_checked_field("vegan")
       expect(page).to have_unchecked_field("vegetarian")
+      expect(page).to have_checked_field("Produces leftovers")
+      expect(page).to have_checked_field("beef")
+      expect(page).to have_field("For how many days:", with: 3)
     end
 
     it "lets you edit and destroy recipes" do
@@ -67,6 +75,9 @@ RSpec.feature "recipes", js: true do
       fill_in("Name", with: "Venison stew")
       check("vegetarian")
       check("vegan")
+      check("Produces leftovers")
+      choose("pork")
+      fill_in("For how many days:", with: 2)
       click_on("Save")
 
       expect(page).not_to have_css("#modal div")
@@ -76,6 +87,9 @@ RSpec.feature "recipes", js: true do
       expect(page).to have_unchecked_field("quick")
       expect(page).to have_checked_field("vegan")
       expect(page).to have_checked_field("vegetarian")
+      expect(page).to have_checked_field("Produces leftovers")
+      expect(page).to have_checked_field("pork")
+      expect(page).to have_field("For how many days:", with: 2)
 
       # Close the modal
       find("#modal-close").click
