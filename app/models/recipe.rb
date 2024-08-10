@@ -4,6 +4,7 @@ class Recipe < ApplicationRecord
   has_many :tags, through: :recipe_properties
   has_many :plan_days, dependent: :nullify
   has_one :leftovers_source, required: false, dependent: :destroy
+  has_one :leftovers_sink, required: false, dependent: :destroy
 
   validates :name, presence: true
 

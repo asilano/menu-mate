@@ -13,7 +13,7 @@ module I18n
           _key = _key.to_sym
           return nil unless result.is_a?(Hash) && result.has_key?(_key)
           result = result[_key]
-          result = resolve(locale, _key, result, options.merge(:scope => nil)) if result.is_a?(Symbol)
+          result = resolve(locale, _key, result, options.merge(scope: nil)) if result.is_a?(Symbol)
           puts "\t => " + result.to_s + "\n\n\n" if Rails.env.development? && (result.class == String)
 
           result
