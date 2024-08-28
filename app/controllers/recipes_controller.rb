@@ -12,6 +12,8 @@ class RecipesController < ApplicationController
 
   def new
     @recipe = Recipe.build
+    @recipe.build_leftovers_source
+    @recipe.build_leftovers_sink
   end
 
   def create
@@ -20,17 +22,25 @@ class RecipesController < ApplicationController
     if @new_recipe.save
       @another = params.has_key?(:another)
       @recipe = Recipe.build
+      @recipe.build_leftovers_source
+      @recipe.build_leftovers_sink
     else
       @recipe = @new_recipe
+      @recipe.build_leftovers_source unless @recipe.leftovers_source
+      @recipe.build_leftovers_sink unless @recipe.leftovers_sink
       render :new
     end
   end
 
   def edit
+    @recipe.build_leftovers_source unless @recipe.leftovers_source
+    @recipe.build_leftovers_sink unless @recipe.leftovers_sink
   end
 
   def update
     if !@recipe.update(recipe_params)
+      @recipe.build_leftovers_source unless @recipe.leftovers_source
+      @recipe.build_leftovers_sink unless @recipe.leftovers_sink
       render :edit
     end
   end
@@ -49,7 +59,18 @@ class RecipesController < ApplicationController
   def recipe_params
     params.require(:recipe).permit([
       :name,
-      tag_ids: []
+      tag_ids: [],
+      leftovers_source_attributes: [
+        :id,
+        :leftover_id,
+        :num_days,
+        :_destroy
+      ],
+      leftovers_sink_attributes: [
+        :id,
+        :leftover_id,
+        :_destroy
+      ]
     ])
   end
 end

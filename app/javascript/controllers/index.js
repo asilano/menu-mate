@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import ControlledFieldsetController from "./controlled_fieldset_controller"
+application.register("controlled-fieldset", ControlledFieldsetController)
+
 import MainMenuController from "./main_menu_controller"
 application.register("main-menu", MainMenuController)
 
