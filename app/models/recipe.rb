@@ -9,4 +9,5 @@ class Recipe < ApplicationRecord
   validates :name, presence: true
 
   accepts_nested_attributes_for :leftovers_source, allow_destroy: true
+  accepts_nested_attributes_for :leftovers_sink, allow_destroy: true
 end

@@ -3,6 +3,5 @@ FactoryBot.define do
     recipe { nil }
     leftover { nil }
     num_days { 1 }
-    user { nil }
   end
 end

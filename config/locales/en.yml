@@ -28,19 +28,29 @@
 #       enabled: "ON"
 
 en:
+  leftover: &leftover
+    "Leftover"
+  leftover_attrs: &leftover_attrs
+    leftover: "type"
+    num_days: "number of days"
+  leftover_errors: &leftover_errors
+    attributes:
+      leftover:
+        blank: "must be specified"
+        required: "must be specified"
+  nested_leftover_format: &nested_leftover_format
+    format: "Leftover %{attribute} %{message}"
+
   activerecord:
     models:
-      leftovers_source: "Leftover"
+      leftovers_source: *leftover
+      leftovers_sink: *leftover
     attributes:
-      leftovers_source:
-        leftover: "type"
-        num_days: "number of days"
+      leftovers_source: *leftover_attrs
+      leftovers_sink: *leftover_attrs
     errors:
       models:
-        recipe/leftovers_source:
-          format: "Leftover %{attribute} %{message}"
-        leftovers_source:
-          attributes:
-            leftover:
-              blank: "must be specified"
-              required: "must be specified"
+        recipe/leftovers_source: *nested_leftover_format
+        recipe/leftovers_sink: *nested_leftover_format
+        leftovers_source: *leftover_errors
+        leftovers_sink: *leftover_errors

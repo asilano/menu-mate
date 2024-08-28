@@ -11,7 +11,7 @@
     .label= f.label :name
     .input= f.text_field :name, placeholder: "Beef in Beer", autofocus: true
   = render "shared/tag_checkboxes", f:
-  = render "leftover_source_fields", f:
+  = render "leftover_fields", f:
 
   .button-area
     - if !@recipe.persisted?
