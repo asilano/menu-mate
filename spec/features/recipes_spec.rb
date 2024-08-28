@@ -25,7 +25,7 @@ RSpec.feature "recipes", js: true do
       expect(page).to have_css(".recipe:nth-child(4) .name", text: "Lemon cake")
     end
 
-    it "lets you add recipes" do
+    it "lets you add recipes, including errors and tags" do
       visit "/recipes"
       click_link "Add new recipe"
 
@@ -51,9 +51,6 @@ RSpec.feature "recipes", js: true do
       fill_in("Name", with: "Apple pie")
       check("quick")
       check("vegan")
-      check("Produces leftovers")
-      choose("beef")
-      fill_in("For how many days:", with: 3)
       click_on("Save and close")
 
       expect(page).not_to have_css("#modal div")
@@ -63,9 +60,80 @@ RSpec.feature "recipes", js: true do
       expect(page).to have_checked_field("quick")
       expect(page).to have_checked_field("vegan")
       expect(page).to have_unchecked_field("vegetarian")
+    end
+
+    it "lets you add recipes making leftovers" do
+      visit "/recipes"
+      click_link "Add new recipe"
+
+      within("#modal") do
+        expect(page).to have_text("Add Recipe")
+      end
+
+      fill_in("Name", with: "Roast beef")
+      check("Produces leftovers")
+      choose("beef")
+      fill_in("For how many days:", with: 3)
+      check("vegan")
+      click_on("Save and close")
+
+      find("##{dom_id(Recipe.last, "edit")}").click
+      expect(page).to have_checked_field("vegan")
       expect(page).to have_checked_field("Produces leftovers")
       expect(page).to have_checked_field("beef")
       expect(page).to have_field("For how many days:", with: 3)
+      click_on("Cancel")
+
+      click_link "Add new recipe"
+
+      within("#modal") do
+        expect(page).to have_text("Add Recipe")
+      end
+
+      fill_in("Name", with: "Roast pork")
+      check("Produces leftovers")
+      fill_in("For how many days:", with: 3)
+      click_on("Save and close")
+
+      expect(page).to have_css("#modal #error_explanation", text: "Leftover type must be specified")
+
+      check("Produces leftovers")
+      choose("pork")
+      fill_in("For how many days:", with: "")
+      click_on("Save and close")
+
+      expect(page).to have_css("#modal #error_explanation", text: "Leftover number of days is not a number")
+    end
+
+    it "lets you add recipes using leftovers" do
+      visit "/recipes"
+      click_link "Add new recipe"
+
+      within("#modal") do
+        expect(page).to have_text("Add Recipe")
+      end
+
+      fill_in("Name", with: "Roast beef")
+      check("Uses leftovers")
+      choose("beef")
+      click_on("Save and close")
+
+      find("##{dom_id(Recipe.last, "edit")}").click
+      expect(page).to have_checked_field("Uses leftovers")
+      expect(page).to have_checked_field("beef")
+      click_on("Cancel")
+
+      click_link "Add new recipe"
+
+      within("#modal") do
+        expect(page).to have_text("Add Recipe")
+      end
+
+      fill_in("Name", with: "Roast pork")
+      check("Uses leftovers")
+      click_on("Save and close")
+
+      expect(page).to have_css("#modal #error_explanation", text: "Leftover type must be specified")
     end
 
     it "lets you edit and destroy recipes" do
