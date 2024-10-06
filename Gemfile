@@ -4,7 +4,7 @@ source "https://rubygems.org"
 ruby "~> 3.2.0"
 
 # Use main development branch of Rails
-gem "rails", "~> 7.1"
+gem "rails", "~> 7.2"
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
