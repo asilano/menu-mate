@@ -12,6 +12,8 @@ require "capybara/cuprite"
 require 'capybara-screenshot/rspec'
 require "webmock/rspec"
 
+require_relative "support/cuprite_options_builder"
+
 WebMock.disable_net_connect!(allow_localhost: true)
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -75,5 +77,6 @@ end
 
 Capybara.javascript_driver = :cuprite
 Capybara.register_driver(:cuprite) do |app|
-  Capybara::Cuprite::Driver.new(app, window_size: [1200, 800])
+  cuprite_options = CupriteOptionsBuilder.for(:cuprite_chrome)
+  Capybara::Cuprite::Driver.new(app, cuprite_options)
 end
