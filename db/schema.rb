@@ -29,25 +29,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_07_214427) do
     t.index ["user_id"], name: "index_leftovers_on_user_id"
   end
 
-  create_table "leftovers_sinks", force: :cascade do |t|
-    t.bigint "recipe_id", null: false
-    t.bigint "leftover_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["leftover_id"], name: "index_leftovers_sinks_on_leftover_id"
-    t.index ["recipe_id"], name: "index_leftovers_sinks_on_recipe_id"
-  end
-
-  create_table "leftovers_sources", force: :cascade do |t|
-    t.bigint "recipe_id", null: false
-    t.bigint "leftover_id", null: false
-    t.integer "num_days"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["leftover_id"], name: "index_leftovers_sources_on_leftover_id"
-    t.index ["recipe_id"], name: "index_leftovers_sources_on_recipe_id"
-  end
-
   create_table "menu_plans", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -113,10 +94,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_07_214427) do
 
   add_foreign_key "active_sessions", "users", on_delete: :cascade
   add_foreign_key "leftovers", "users"
-  add_foreign_key "leftovers_sinks", "leftovers"
-  add_foreign_key "leftovers_sinks", "recipes"
-  add_foreign_key "leftovers_sources", "leftovers"
-  add_foreign_key "leftovers_sources", "recipes"
   add_foreign_key "menu_plans", "users"
   add_foreign_key "plan_day_restrictions", "plan_days"
   add_foreign_key "plan_day_restrictions", "tags"
