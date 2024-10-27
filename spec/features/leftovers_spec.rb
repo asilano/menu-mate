@@ -18,7 +18,7 @@ RSpec.feature "leftovers", js: true do
       expect(page).to have_css(".leftover:nth-of-type(3) .name", text: "chicken")
     end
 
-    it "lets you add leftover sources" do
+    it "lets you add leftover types" do
       visit "/tags"
       click_link "Add new leftover"
 
