@@ -20,9 +20,19 @@ class MenuPlan < ApplicationRecord
       plan_day.update(recipe: meal)
 
       state[:used_ids] << meal.id if meal
-      if meal && meal.leftovers_source
-        state[:leftovers][meal.leftovers_source.leftover.id] ||= 0
-        state[:leftovers][meal.leftovers_source.leftover.id] += meal.leftovers_source.num_days
+      if meal
+        if meal.leftovers_source
+          state[:leftovers][meal.leftovers_source.leftover.id] ||= 0
+          state[:leftovers][meal.leftovers_source.leftover.id] += meal.leftovers_source.num_days
+        end
+
+        if meal.leftovers_sink && state[:leftovers][meal.leftovers_sink.leftover.id]
+          state[:leftovers][meal.leftovers_sink.leftover.id] -= 1
+
+          if state[:leftovers][meal.leftovers_sink.leftover.id] == 0
+            state[:leftovers].delete(meal.leftovers_sink.leftover.id)
+          end
+        end
       end
     end
   end
