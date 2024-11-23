@@ -5,33 +5,43 @@ class MenuPlan < ApplicationRecord
   def fill
     plan_days.each.with_object({ used_ids: [], leftovers: {} }) do |plan_day, state|
       candidates = plan_day.candidate_recipes.reject { |r| state[:used_ids].include?(r.id) }
-
-      leftover_filtered_candidates = candidates.select do |candidate|
-        candidate.leftovers_sink&.leftover_id &&
-          state[:leftovers][candidate.leftovers_sink.leftover_id] &&
-          state[:leftovers][candidate.leftovers_sink.leftover_id] > 0
-      end
-
-      if !leftover_filtered_candidates.empty?
-        candidates = leftover_filtered_candidates
-      end
+      candidates = filter_for_leftovers(candidates, state[:leftovers])
 
       meal = candidates.sample
       plan_day.update(recipe: meal)
 
-      state[:used_ids] << meal.id if meal
-      if meal
-        if meal.leftovers_source
-          state[:leftovers][meal.leftovers_source.leftover.id] ||= 0
-          state[:leftovers][meal.leftovers_source.leftover.id] += meal.leftovers_source.num_days
-        end
+      update_state(state, meal)
+    end
+  end
 
-        if meal.leftovers_sink && state[:leftovers][meal.leftovers_sink.leftover.id]
-          state[:leftovers][meal.leftovers_sink.leftover.id] -= 1
+  private
 
-          if state[:leftovers][meal.leftovers_sink.leftover.id] == 0
-            state[:leftovers].delete(meal.leftovers_sink.leftover.id)
-          end
+  def filter_for_leftovers(candidates, leftover_state)
+    leftover_filtered_candidates = candidates.select do |candidate|
+      candidate.leftovers_sink&.leftover_id &&
+        leftover_state[candidate.leftovers_sink.leftover_id] &&
+        leftover_state[candidate.leftovers_sink.leftover_id] > 0
+    end
+
+    return leftover_filtered_candidates unless leftover_filtered_candidates.empty?
+
+    candidates
+  end
+
+  def update_state(state, meal)
+    if meal
+      state[:used_ids] << meal.id
+
+      if meal.leftovers_source
+        state[:leftovers][meal.leftovers_source.leftover.id] ||= 0
+        state[:leftovers][meal.leftovers_source.leftover.id] += meal.leftovers_source.num_days
+      end
+
+      if meal.leftovers_sink && state[:leftovers][meal.leftovers_sink.leftover.id]
+        state[:leftovers][meal.leftovers_sink.leftover.id] -= 1
+
+        if state[:leftovers][meal.leftovers_sink.leftover.id] == 0
+          state[:leftovers].delete(meal.leftovers_sink.leftover.id)
         end
       end
     end
