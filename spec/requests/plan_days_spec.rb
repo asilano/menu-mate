@@ -38,7 +38,7 @@ RSpec.describe "PlanDays", type: :request do
 
         it "edits the plan_day" do
           put plan_day_path(plan_day), params:, as: :turbo_stream
-          expect(plan_day.tags.map(&:id)).to contain_exactly(vegetarian_tag.id, quick_tag.id)
+          expect(plan_day.tags.reload).to contain_exactly(vegetarian_tag, quick_tag)
         end
       end
 
