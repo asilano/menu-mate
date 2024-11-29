@@ -7,9 +7,13 @@
         - @recipe.errors.full_messages.each do |msg|
           li= msg
 
-  .field
-    .label= f.label :name
-    .input= f.text_field :name, placeholder: "Beef in Beer", autofocus: true
+  .side-by-side
+    .field
+      .label= f.label :name
+      .input= f.text_field :name, placeholder: "Beef in Beer", autofocus: true
+    .field
+      .label= f.label :multi_day_count
+      .input= f.text_field :multi_day_count
   = render "shared/tag_checkboxes", f:
   = render "leftover_fields", f:
 

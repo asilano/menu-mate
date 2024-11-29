@@ -28,6 +28,23 @@ input[type=text], input[type=number] {
   }
 }
 
+.side-by-side {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+  .field:first-child {
+    flex-grow: 3;
+  }
+  .field:last-child {
+    flex-grow: 1;
+  }
+
+  .field input[type=text], input[type=number] {
+    width: 100%;
+  }
+}
+
 .input-inline-button {
   display: flex;
   .input {
