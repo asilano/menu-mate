@@ -80,3 +80,10 @@ Capybara.register_driver(:cuprite) do |app|
   cuprite_options = CupriteOptionsBuilder.for(:cuprite_chrome)
   Capybara::Cuprite::Driver.new(app, cuprite_options)
 end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end

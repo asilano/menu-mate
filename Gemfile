@@ -81,6 +81,7 @@ group :test do
   gem "capybara-screenshot"
   gem "cuprite"
   gem "selenium-webdriver"
+  gem "shoulda-matchers"
   gem "rspec-rails"
   gem "webmock"
 end
