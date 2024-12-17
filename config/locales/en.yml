@@ -54,3 +54,8 @@ en:
         recipe/leftovers_sink: *nested_leftover_format
         leftovers_source: *leftover_errors
         leftovers_sink: *leftover_errors
+
+  helpers:
+    label:
+      recipe:
+        multi_day_count: "Serves how many days?"

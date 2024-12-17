@@ -3,7 +3,12 @@ class MenuPlan < ApplicationRecord
   has_many :plan_days, -> { order("day_number") }, dependent: :destroy
 
   def fill
-    plan_days.each.with_object({ used_ids: [], leftovers: {} }) do |plan_day, state|
+    plan_days.each.with_object({ used_ids: [], leftovers: {}, multi_day_followups: [] }) do |plan_day, state|
+      if state[:multi_day_followups].present?
+        plan_day.update(recipe: state[:multi_day_followups].pop)
+        next
+      end
+
       candidates = plan_day.candidate_recipes.reject { |r| state[:used_ids].include?(r.id) }
       candidates = filter_for_leftovers(candidates, state[:leftovers])
 
@@ -43,6 +48,10 @@ class MenuPlan < ApplicationRecord
         if state[:leftovers][meal.leftovers_sink.leftover.id] == 0
           state[:leftovers].delete(meal.leftovers_sink.leftover.id)
         end
+      end
+
+      if meal.multi_day_count > 1
+        state[:multi_day_followups].concat([meal] * (meal.multi_day_count - 1))
       end
     end
   end

@@ -59,6 +59,7 @@ class RecipesController < ApplicationController
   def recipe_params
     params.require(:recipe).permit([
       :name,
+      :multi_day_count,
       tag_ids: [],
       leftovers_source_attributes: [
         :id,
