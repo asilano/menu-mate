@@ -91,4 +91,62 @@ RSpec.describe MenuPlan, type: :model do
       end
     end
   end
+
+  context "multi-day recipes" do
+    let(:multi_day) { create(:tag, user:, name: "multi day") }
+    let!(:bean_wraps) do
+      create(:recipe,
+        name: "Bean Wraps",
+        user:,
+        tags: [multi_day],
+        multi_day_count: 3)
+    end
+    let!(:pork_tacos) do
+      create(:recipe,
+        name: "Pork Tacos",
+        user:,
+        tags: [])
+    end
+    let!(:spaghetti_bolognese) do
+      create(:recipe,
+        name: "Spaghetti Bolognese",
+        user:,
+        tags: [])
+    end
+
+    let(:monday) { build(:plan_day, user:, day_number: 1, tags: [multi_day]) }
+    let(:tuesday) { build(:plan_day, user:, day_number: 2) }
+    let(:wednesday) { build(:plan_day, user:, day_number: 3) }
+    let(:thursday) { build(:plan_day, user:, day_number: 4) }
+    let(:menu_plan) { create(:menu_plan, user:, plan_days: [monday, tuesday, wednesday, thursday]) }
+
+    it "enforces remaining multi-day meals after initial day" do
+      10.times do
+        menu_plan.fill
+        expect(monday.recipe).to eq bean_wraps
+        expect([tuesday, wednesday].map(&:recipe)).to match_array([bean_wraps, bean_wraps])
+        expect(thursday.recipe).to be_in [pork_tacos, spaghetti_bolognese]
+      end
+    end
+
+    context "when multi-day use-up days are also tagged with incompatible tags" do
+      let(:quick) { create(:tag, user:, name: "quick") }
+      let(:tuesday) { build(:plan_day, user:, day_number: 2, tags: [quick]) }
+      let!(:spaghetti_bolognese) do
+        create(:recipe,
+          name: "Spaghetti Bolognese",
+          user:,
+          tags: [quick])
+      end
+
+      it "enforces remaining multi-day meals ignoring tags" do
+        10.times do
+          menu_plan.fill
+          expect(monday.recipe).to eq bean_wraps
+          expect([tuesday, wednesday].map(&:recipe)).to match_array([bean_wraps, bean_wraps])
+          expect(thursday.recipe).to be_in [pork_tacos, spaghetti_bolognese]
+        end
+      end
+    end
+  end
 end
