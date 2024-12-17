@@ -13,7 +13,7 @@
       .input= f.text_field :name, placeholder: "Beef in Beer", autofocus: true
     .field
       .label= f.label :multi_day_count
-      .input= f.text_field :multi_day_count
+      .input= f.number_field :multi_day_count
   = render "shared/tag_checkboxes", f:
   = render "leftover_fields", f:
 
