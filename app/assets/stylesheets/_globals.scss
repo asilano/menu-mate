@@ -8,7 +8,7 @@
   --pressed-button-bg: #{color.scale($white, $lightness: -10%)};
 
   $banner-background: blue;
-  --banner-height: 50px;
+  --banner-height: 60px;
   --banner-background: #{$banner-background};
   --banner-highlight: #{color.scale($banner-background, $lightness: 20%)};
 
@@ -18,9 +18,12 @@
   --black: #111111;
   --white: #{$white};
   --mid-red: #dd0000;
+  --highlight-yellow: #e2e200;
 
   --main-font-stack: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
   --font-weight-bold: 600;
+
+  --card-box-shadow: 5px 5px 15px 0px var(--mid-fg-grey);
 }
 
 .hidden {
