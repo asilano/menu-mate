@@ -1,5 +1,10 @@
-= turbo_stream.append "tag-list" do
-  = render partial: "tag", object: @new_tag
+= turbo_stream.update "tag-list" do
+  h2 General tags
+  .header-row
+    .field.name Name
+    .field.actions
+  = render partial: "tag", collection: @tags, locals: { new_tag_id: @new_tag.id }
+
 
 - if @another
   = turbo_stream.replace "modal" do

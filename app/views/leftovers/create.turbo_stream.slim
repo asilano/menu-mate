@@ -1,5 +1,9 @@
-= turbo_stream.append "leftover-list" do
-  = render partial: "leftover", object: @new_leftover
+= turbo_stream.update "leftover-list" do
+  h2 Leftovers
+  .header-row
+    .field.name Kind
+    .field.actions
+  = render partial: "leftovers/leftover", collection: @leftovers, locals: { new_leftover_id: @new_leftover.id }
 
 - if @another
   = turbo_stream.replace "modal" do

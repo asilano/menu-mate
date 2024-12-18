@@ -1,4 +1,6 @@
 class LeftoversController < ApplicationController
+  include TagHandling
+
   before_action :authenticate_user!
   before_action -> { ensure_turbo_frame(leftovers_path) }, only: [:new, :edit]
   before_action :load_leftover, only: %i[edit update destroy]
@@ -13,6 +15,8 @@ class LeftoversController < ApplicationController
     if @new_leftover.save
       @another = params.has_key?(:another)
       @leftover = Leftover.build
+
+      load_tags
     else
       @leftover = @new_leftover
       render :new

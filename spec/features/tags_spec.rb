@@ -13,14 +13,14 @@ RSpec.feature "tags", js: true do
   end
 
   describe "on the tags index page" do
-    it "lists the tags" do
+    it "lists the tags alphabetically" do
       visit "/tags"
       expect(page).to have_css(".tag:nth-of-type(2) .name", text: "quick")
       expect(page).to have_css(".tag:nth-of-type(3) .name", text: "vegan")
       expect(page).to have_css(".tag:nth-of-type(4) .name", text: "vegetarian")
     end
 
-    it "lets you add tags" do
+    it "lets you add tags, inserting them alphabetically" do
       visit "/tags"
       click_link "Add new tag"
 
@@ -31,7 +31,7 @@ RSpec.feature "tags", js: true do
       click_on("Save and close")
 
       expect(page).not_to have_css("#modal div")
-      expect(page).to have_css(".tag:last-child .name", text: "chicken")
+      expect(page).to have_css(".tag:nth-of-type(2) .name", text: "chicken")
 
       click_link "Add new tag"
       click_on("Save and close")
@@ -41,13 +41,13 @@ RSpec.feature "tags", js: true do
       fill_in("Name", with: "pork")
       click_on("Save and add another")
 
-      expect(page).to have_css(".tag:last-child .name", text: "pork")
+      expect(page).to have_css(".tag:nth-of-type(3) .name", text: "pork")
 
       fill_in("Name", with: "fish")
       click_on("Save and close")
 
       expect(page).not_to have_css("#modal div")
-      expect(page).to have_css(".tag:last-child .name", text: "fish")
+      expect(page).to have_css(".tag:nth-of-type(3) .name", text: "fish")
     end
 
     it "lets you edit and destroy tags" do
