@@ -23,6 +23,7 @@ body {
   left: 0;
   right: 0;
   height: var(--banner-height);
+  padding: 5px 20px;
   background-color: var(--banner-background);
 
   display: flex;
@@ -31,18 +32,18 @@ body {
 
   .menu-button {
     font-size: 1.5em;
-    padding-left: 0.5em;
     color: white;
   }
 
   .menu {
     position: absolute;
     top: 100%;
-    left: 0;
+    left: 20px;
     z-index: 10;
     background: var(--body-background);
     border: solid var(--black);
-    border-width: 0 1px 1px 0;
+    border-width: 0 1px 1px 1px;
+    box-shadow: var(--card-box-shadow);
 
     a.menu-link {
       display: block;
@@ -81,7 +82,7 @@ body {
     }
 
     .google-profile-img {
-      --size: calc(var(--banner-height) * 0.8);
+      --size: calc(var(--banner-height) * 0.7);
       height: var(--size);
       width: var(--size);
       border-radius: 50%;
@@ -210,7 +211,7 @@ main#root-page {
   word-break: break-word;
   border-radius: 6px;
   background-color: var(--body-background);
-  box-shadow: 5px 5px 15px 0px #808080;
+  box-shadow: var(--card-box-shadow);
 
   @media screen and (max-width: 800px) {
     width: 400px;
@@ -261,9 +262,19 @@ main#root-page {
     border-bottom: 2px solid var(--black);
   }
 
-  .recipe, .tag {
+  .recipe, .tag, .leftover {
+    overflow: hidden;
+    transition: height 0.5s, padding-top 0.5s, padding-bottom 0.5s, background-color 1s;
+
     &:nth-child(n+3) {
       border-top: 1px solid var(--pale-border);
+    }
+
+    &.new {
+      background-color: var(--highlight-yellow);
+      height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
     }
   }
 }

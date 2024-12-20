@@ -19,6 +19,8 @@ class TagsController < ApplicationController
     if @new_tag.save
       @another = params.has_key?(:another)
       @tag = Tag.build
+
+      load_tags
     else
       @tag = @new_tag
       render :new

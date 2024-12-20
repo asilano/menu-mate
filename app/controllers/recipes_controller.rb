@@ -7,7 +7,7 @@ class RecipesController < ApplicationController
   before_action :load_tags, only: %i[new create edit update]
 
   def index
-    @recipes = current_user.recipes.order(:id)
+    @recipes = current_user.recipes.order(:name)
   end
 
   def new
@@ -24,6 +24,8 @@ class RecipesController < ApplicationController
       @recipe = Recipe.build
       @recipe.build_leftovers_source
       @recipe.build_leftovers_sink
+
+      @recipes = current_user.recipes.order(:name)
     else
       @recipe = @new_recipe
       @recipe.build_leftovers_source unless @recipe.leftovers_source

@@ -1,5 +1,10 @@
-= turbo_stream.append "recipe-list" do
-  = render partial: "recipe", object: @new_recipe
+= turbo_stream.update "recipe-list" do
+  .header-row
+    .field.name Name
+    .field.actions
+  = render partial: "recipe", collection: @recipes, locals: { new_recipe_id: @new_recipe.id }
+
+= turbo_stream.remove_class dom_id(@new_recipe), "new"
 
 - if @another
   = turbo_stream.replace "modal" do

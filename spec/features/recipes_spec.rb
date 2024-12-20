@@ -18,11 +18,11 @@ RSpec.feature "recipes", js: true do
   end
 
   describe "on the recipes index page" do
-    it "lists the recipes" do
+    it "lists the recipes alphabetically" do
       visit "/recipes"
-      expect(page).to have_css(".recipe:nth-child(2) .name", text: "Zabaglione")
+      expect(page).to have_css(".recipe:nth-child(2) .name", text: "Lemon cake")
       expect(page).to have_css(".recipe:nth-child(3) .name", text: "Quince jam")
-      expect(page).to have_css(".recipe:nth-child(4) .name", text: "Lemon cake")
+      expect(page).to have_css(".recipe:nth-child(4) .name", text: "Zabaglione")
     end
 
     it "lets you add recipes, including errors and tags" do
@@ -36,7 +36,7 @@ RSpec.feature "recipes", js: true do
       click_on("Save and close")
 
       expect(page).not_to have_css("#modal div")
-      expect(page).to have_css(".recipe:last-child .name", text: "Venison stew")
+      expect(page).to have_css(".recipe:nth-child(4) .name", text: "Venison stew")
 
       click_link "Add new recipe"
       click_on("Save and close")
@@ -46,7 +46,7 @@ RSpec.feature "recipes", js: true do
       fill_in("Name", with: "Macaroni cheese")
       click_on("Save and add another")
 
-      expect(page).to have_css(".recipe:last-child .name", text: "Macaroni cheese")
+      expect(page).to have_css(".recipe:nth-child(3) .name", text: "Macaroni cheese")
 
       fill_in("Name", with: "Apple pie")
       check("quick")
@@ -54,7 +54,7 @@ RSpec.feature "recipes", js: true do
       click_on("Save and close")
 
       expect(page).not_to have_css("#modal div")
-      expect(page).to have_css(".recipe:last-child .name", text: "Apple pie")
+      expect(page).to have_css(".recipe:nth-child(2) .name", text: "Apple pie")
 
       find("##{dom_id(Recipe.last, "edit")}").click
       expect(page).to have_checked_field("quick")
