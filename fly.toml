@@ -11,8 +11,7 @@ swap_size_mb = 1024
 [build]
 
 [deploy]
-  release_command = './bin/rails db:prepare'
-  #release_command = 'echo running'
+  release_command = "./bin/rails db:prepare"
 
 [env]
   RAILS_ENV = 'production'
