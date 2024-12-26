@@ -68,6 +68,9 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
+  # Live reloading via hotwire
+  gem "hotwire-spark"
+
   gem "dockerfile-rails", ">= 1.6"
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
