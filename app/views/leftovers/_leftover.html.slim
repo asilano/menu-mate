@@ -1,6 +1,6 @@
 - new_leftover_id ||= nil
 .leftover id=dom_id(leftover) class=("new" if leftover.id == new_leftover_id)
-  .field.name id=dom_id(leftover, "name") = leftover.name
+  .field.name.leftover-lozenge.lozenge id=dom_id(leftover, "name") = leftover.name
   .field.actions
     = link_to edit_leftover_path(leftover), id: dom_id(leftover, "edit"), class: "icon", data: { turbo_frame: "modal" }
       i.fa-solid.fa-pen

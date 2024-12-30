@@ -4,13 +4,13 @@ h1 Tags
   = link_to "Add new leftover", new_leftover_path, class: "button", data: { turbo_frame: "modal" }
   = link_to "Manage recipes", recipes_path, class: "button"
 #list-area
-  #tag-list
+  #tag-list.list
     h2 General tags
     .header-row
       .field.name Name
       .field.actions
     = render partial: "tag", collection: @tags
-  #leftover-list
+  #leftover-list.list
     h2 Leftovers
     .header-row
       .field.name Kind

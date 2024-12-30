@@ -245,15 +245,44 @@ main#root-page {
 
   .recipe, .tag, .leftover, .header-row {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
     width: 100%;
     padding: 8px;
+
+    .name {
+      flex-grow: 1;
+      order: 1;
+    }
+
+    .tags, .actions {
+      flex: auto 0 0;
+    }
+
+    .tags {
+      order: 2;
+    }
+
+    .actions {
+      order: 3
+    }
 
     @media screen and (max-width: 800px) {
       font-size: 1.5em;
       padding: 15px;
+
+      .actions {
+        order: 2;
+      }
+      .tags {
+        order: 3;
+        width: 100%;
+      }
+      .lozenge {
+        font-size: 18px;
+      }
     }
   }
 
@@ -277,6 +306,10 @@ main#root-page {
       padding-bottom: 0;
     }
   }
+}
+
+#recipe-list {
+  width: 70%;
 }
 
 #menu-planner {
@@ -317,4 +350,26 @@ main#root-page {
       flex-grow: 1;
     }
   }
+}
+
+.lozenge {
+  display: inline-block;
+  padding: 0 7px;
+  border-radius: 2em;
+  font-size: 14px;
+  line-height: 1.5em;
+}
+
+.list .lozenge {
+  font-size: inherit;
+}
+
+.tag-lozenge {
+  background-color: var(--pale-bg-grey);
+  border: 1px solid var(--black);
+}
+.leftover-lozenge {
+  background-color: var(--dark-bg-grey);
+  border: 1px solid var(--pale-border);
+  color: var(--white);
 }

@@ -1,6 +1,8 @@
 - new_recipe_id ||= nil
 .recipe id=dom_id(recipe) class=("new" if recipe.id == new_recipe_id)
   .field.name id=dom_id(recipe, "name") = recipe.name
+  .field.tags
+    = render partial: "shared/tag_lozenge", collection: recipe.tags, as: :tag
   .field.actions
     = link_to edit_recipe_path(recipe), id: dom_id(recipe, "edit"), class: "icon", data: { turbo_frame: "modal" }
       i.fa-solid.fa-pen
