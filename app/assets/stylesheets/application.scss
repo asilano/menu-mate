@@ -358,6 +358,7 @@ main#root-page {
   border-radius: 2em;
   font-size: 14px;
   line-height: 1.5em;
+  font-family: var(--main-font-stack);
 }
 
 .list .lozenge {
@@ -367,6 +368,7 @@ main#root-page {
 .tag-lozenge {
   background-color: var(--pale-bg-grey);
   border: 1px solid var(--black);
+  color: var(--black);
 }
 .leftover-lozenge {
   background-color: var(--dark-bg-grey);
