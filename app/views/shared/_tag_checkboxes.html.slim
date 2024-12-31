@@ -3,4 +3,4 @@ fieldset.checkboxes
   = f.collection_check_boxes :tag_ids, @tags, :id, :name do |tag|
     .tag-checkbox
       = tag.check_box
-      = tag.label
+      .tag-lozenge.lozenge= tag.label

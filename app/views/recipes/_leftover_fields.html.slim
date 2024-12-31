@@ -8,9 +8,9 @@ fieldset.checkboxes.controlled-fieldset
         = lsf.hidden_field :_destroy, data: { controlled_fieldset_target: "destroyField" }
       .controlled-field data-controlled-fieldset-target="controlledField"
         = lsf.collection_radio_buttons :leftover_id, @leftovers, :id, :name do |leftover|
-          .leftover-checkbox
+          .leftover-radio
             = leftover.radio_button
-            = leftover.label
+            .leftover-lozenge.lozenge= leftover.label
       .controlled-field data-controlled-fieldset-target="controlledField"
         .field.short
           = lsf.label :num_days, "For how many days:"
@@ -23,6 +23,6 @@ fieldset.checkboxes.controlled-fieldset
         = lsf.hidden_field :_destroy, data: { controlled_fieldset_target: "destroyField" }
       .controlled-field data-controlled-fieldset-target="controlledField"
         = lsf.collection_radio_buttons :leftover_id, @leftovers, :id, :name do |leftover|
-          .leftover-checkbox
+          .leftover-radio
             = leftover.radio_button
-            = leftover.label
+            .leftover-lozenge.lozenge= leftover.label
