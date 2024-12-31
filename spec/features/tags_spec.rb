@@ -76,5 +76,16 @@ RSpec.feature "tags", js: true do
       expect(page).not_to have_css("##{dom_id(vegan)}")
       expect(Tag.count).to eq 2
     end
+
+    it "previews the tag on the edit modal" do
+      visit "/tags"
+      click_link "Add new tag"
+
+      within("#modal") do
+        expect(page).to have_css(".tag-lozenge", text: "preview")
+        fill_in("Name", with: "favourite")
+        expect(page).to have_css(".tag-lozenge", text: "favourite")
+      end
+    end
   end
 end

@@ -359,6 +359,10 @@ main#root-page {
   font-size: 14px;
   line-height: 1.5em;
   font-family: var(--main-font-stack);
+
+  &.preview {
+    margin-bottom: 10px;
+  }
 }
 
 .list .lozenge {
