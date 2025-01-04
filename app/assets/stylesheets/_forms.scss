@@ -76,12 +76,16 @@ fieldset.checkboxes {
     }
   }
 
-  .tag-checkbox, .leftover-checkbox {
+  .tag-checkbox, .leftover-radio {
     flex: 0 0 33%;
     display: flex;
     align-items: center;
-    label {
+    .lozenge {
       margin-left: 5px;
     }
+  }
+
+  .leftover-radio {
+    margin-bottom: 2px;
   }
 }

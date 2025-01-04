@@ -1,1 +1,4 @@
+= turbo_stream.replace dom_id(@plan_day) do
+  = render partial: "plan_day", object: @plan_day
+
 = turbo_stream.dispatch "close", target: "modal-inner"

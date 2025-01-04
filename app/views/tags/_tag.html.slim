@@ -1,6 +1,7 @@
 - new_tag_id ||= nil
 .tag id=dom_id(tag) class=("new" if tag.id == new_tag_id)
-  .field.name id=dom_id(tag, "name") = tag.name
+  .field.name
+    .tag-lozenge.lozenge id=dom_id(tag, "name") = tag.name
   .field.actions
     = link_to edit_tag_path(tag), id: dom_id(tag, "edit"), class: "icon", data: { turbo_frame: "modal" }
       i.fa-solid.fa-pen

@@ -4,6 +4,9 @@ require "rails_helper"
 
 RSpec.feature "menu_plans", js: true do
   let(:user) { create(:user) }
+  let!(:quick_tag) { create(:tag, user:, name: "quick") }
+  let!(:vegetarian_tag) { create(:tag, user:, name: "vegetarian") }
+  let!(:vegan_tag) { create(:tag, user:, name: "vegan") }
   let(:zabaglione) { create(:recipe, user:, name: "Zabaglione") }
   let(:quince_jam) { create(:recipe, user:, name: "Quince jam") }
   let(:lemon_cake) { create(:recipe, user:, name: "Lemon cake") }
@@ -69,6 +72,38 @@ RSpec.feature "menu_plans", js: true do
       expect(page).to have_css(".plan-day", text: "Day 5\nTags\nTiramisu")
       expect(page).to have_css(".plan-day", text: "Day 6\nTags\nNo suitable recipe")
       expect(page).to have_css(".plan-day", text: "Day 7\nTags\nNo suitable recipe")
+    end
+  end
+
+  describe "editing tags on the menu plan" do
+    before { visit "/menu_plan/new" }
+
+    it "shows the tags on the day card" do
+      within(".plan-day:nth-child(1)") do
+        click_on("Tags")
+      end
+
+      within("#modal") do
+        expect(page).to have_text("Edit Day 1")
+        check("quick")
+        check("vegan")
+        click_on("Save and close")
+      end
+
+      expect(page).to have_css(".plan-day:nth-child(1)", text: "quick vegan")
+
+      within(".plan-day:nth-child(3)") do
+        click_on("Tags")
+      end
+
+      within("#modal") do
+        expect(page).to have_text("Edit Day 3")
+        check("vegetarian")
+        check("vegan")
+        click_on("Save and close")
+      end
+
+      expect(page).to have_css(".plan-day:nth-child(3)", text: "vegan vegetarian")
     end
   end
 end

@@ -1,4 +1,4 @@
-= form_for @leftover do |f|
+= form_for @leftover, data: { controller: "lozenge-preview" } do |f|
   - if @leftover.errors.any?
     #error_explanation
       h2
@@ -7,9 +7,11 @@
         - @leftover.errors.full_messages.each do |msg|
           li= msg
 
+  .preview.leftover-lozenge.lozenge data-lozenge-preview-target="preview" = @leftover.name.presence || "preview"
+
   .field
     .label= f.label :name, "Kind"
-    .input= f.text_field :name, placeholder: "beef", autofocus: true
+    .input= f.text_field :name, placeholder: "beef", autofocus: true, data: { action: "lozenge-preview#nameChange" }
 
   .button-area
     - if !@leftover.persisted?

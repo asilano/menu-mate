@@ -1,6 +1,9 @@
-.plan-day
+.plan-day id=dom_id(plan_day)
   .title
     span Day #{plan_day.day_number + 1}
     = link_to "Tags", edit_plan_day_path(plan_day), class: "button", data: { turbo_frame: "modal" }
   .meal
     = plan_day.recipe&.name || "No suitable recipe"
+  .field.tags
+    = render partial: "shared/tag_lozenge", collection: plan_day.tags, as: :tag
+
