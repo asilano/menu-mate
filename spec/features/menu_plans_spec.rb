@@ -6,7 +6,7 @@ RSpec.feature "menu_plans", js: true do
   let(:user) { create(:user) }
   let!(:quick_tag) { create(:tag, user:, name: "quick") }
   let!(:vegetarian_tag) { create(:tag, user:, name: "vegetarian") }
-  let!(:vegan_tag) { create(:tag, user:, name: "vegan") }
+  let!(:vegan_tag) { create(:tag, user:, name: "vegan", colour: "#aabbff") }
   let(:zabaglione) { create(:recipe, user:, name: "Zabaglione") }
   let(:quince_jam) { create(:recipe, user:, name: "Quince jam") }
   let(:lemon_cake) { create(:recipe, user:, name: "Lemon cake") }
@@ -78,7 +78,7 @@ RSpec.feature "menu_plans", js: true do
   describe "editing tags on the menu plan" do
     before { visit "/menu_plan/new" }
 
-    it "shows the tags on the day card" do
+    it "shows the tags in colour on the day card" do
       within(".plan-day:nth-child(1)") do
         click_on("Tags")
       end
@@ -91,6 +91,9 @@ RSpec.feature "menu_plans", js: true do
       end
 
       expect(page).to have_css(".plan-day:nth-child(1)", text: "quick vegan")
+      vegan_lozenge = page.find(".plan-day:nth-child(1) .tags .tag-lozenge:nth-child(2)")
+      expect(vegan_lozenge.style("background-color")["background-color"]).to eq "rgb(170, 187, 255)"
+      expect(vegan_lozenge.style("color")["color"]).to eq "rgb(17, 17, 17)"
 
       within(".plan-day:nth-child(3)") do
         click_on("Tags")
@@ -104,6 +107,9 @@ RSpec.feature "menu_plans", js: true do
       end
 
       expect(page).to have_css(".plan-day:nth-child(3)", text: "vegan vegetarian")
+      vegan_lozenge = page.find(".plan-day:nth-child(3) .tags .tag-lozenge:first-child")
+      expect(vegan_lozenge.style("background-color")["background-color"]).to eq "rgb(170, 187, 255)"
+      expect(vegan_lozenge.style("color")["color"]).to eq "rgb(17, 17, 17)"
     end
   end
 end

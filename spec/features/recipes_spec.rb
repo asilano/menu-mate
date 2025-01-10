@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.feature "recipes", js: true do
   let(:user) { create(:user) }
-  let!(:quick_tag) { create(:tag, user:, name: "quick") }
+  let!(:quick_tag) { create(:tag, user:, name: "quick", colour: "#005050") }
   let!(:vegetarian_tag) { create(:tag, user:, name: "vegetarian") }
   let!(:vegan_tag) { create(:tag, user:, name: "vegan") }
   let!(:beef_leftovers) { create(:leftover, user:, name: "beef") }
@@ -25,11 +25,15 @@ RSpec.feature "recipes", js: true do
       expect(page).to have_css(".recipe:nth-child(4) .name", text: "Zabaglione")
     end
 
-    it "includes the tags on the recipe line" do
+    it "includes the coloured tags on the recipe line" do
       visit "/recipes"
       expect(page).to have_css(".recipe:nth-child(2) .tags", text: "quick")
       expect(page).to have_css(".recipe:nth-child(3) .tags", text: "vegetarian vegan")
       expect(page).to have_css(".recipe:nth-child(4) .tags", text: "")
+
+      quick_lozenge = page.find(".recipe:nth-child(2) .tags .tag-lozenge")
+      expect(quick_lozenge.style("background-color")["background-color"]).to eq "rgb(0, 80, 80)"
+      expect(quick_lozenge.style("color")["color"]).to eq "rgb(250, 250, 250)"
     end
 
     it "lets you add recipes, including errors and tags" do

@@ -41,6 +41,11 @@ class TagsController < ApplicationController
     @tag.destroy
   end
 
+  def lozenge_style
+    colour = params.require(:colour)
+    @tag = Tag.new(colour:)
+  end
+
   private
 
   def load_tag
@@ -49,7 +54,8 @@ class TagsController < ApplicationController
 
   def tag_params
     params.require(:tag).permit([
-      :name
+      :name,
+      :colour
     ])
   end
 end

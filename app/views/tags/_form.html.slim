@@ -1,4 +1,4 @@
-= form_for @tag, data: { controller: "lozenge-preview" } do |f|
+= form_for @tag, data: { controller: "lozenge-preview", lozenge_preview_style_url_value: lozenge_style_tags_url } do |f|
   - if @tag.errors.any?
     #error_explanation
       h2
@@ -7,11 +7,15 @@
         - @tag.errors.full_messages.each do |msg|
           li= msg
 
-  .preview.tag-lozenge.lozenge data-lozenge-preview-target="preview" = @tag.name.presence || "preview"
+  .preview.tag-lozenge data-lozenge-preview-target="preview" style=tag_colours_css(@tag) = @tag.name.presence || "preview"
 
   .field
     .label= f.label :name
     .input= f.text_field :name, placeholder: "vegetarian", autofocus: true, data: { action: "lozenge-preview#nameChange" }
+
+  .field
+    .label= f.label :colour
+    .input.colour= f.color_field :colour, data: { action: "lozenge-preview#colourChange" }
 
   .button-area
     - if !@tag.persisted?
