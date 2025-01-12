@@ -37,6 +37,11 @@ class LeftoversController < ApplicationController
     @leftover.destroy
   end
 
+  def lozenge_style
+    colour = params.require(:colour)
+    @leftover = Leftover.new(colour:)
+  end
+
   private
 
   def load_leftover
@@ -45,7 +50,8 @@ class LeftoversController < ApplicationController
 
   def leftover_params
     params.require(:leftover).permit([
-      :name
+      :name,
+      :colour
     ])
   end
 end

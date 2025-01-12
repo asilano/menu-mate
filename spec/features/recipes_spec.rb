@@ -7,8 +7,8 @@ RSpec.feature "recipes", js: true do
   let!(:quick_tag) { create(:tag, user:, name: "quick", colour: "#005050") }
   let!(:vegetarian_tag) { create(:tag, user:, name: "vegetarian") }
   let!(:vegan_tag) { create(:tag, user:, name: "vegan") }
-  let!(:beef_leftovers) { create(:leftover, user:, name: "beef") }
-  let!(:pork_leftovers) { create(:leftover, user:, name: "pork") }
+  let!(:beef_leftovers) { create(:leftover, user:, name: "beef", colour: "#550000") }
+  let!(:pork_leftovers) { create(:leftover, user:, name: "pork", colour: "#aaffaa") }
   let!(:zabaglione) { create(:recipe, user:, name: "Zabaglione") }
   let!(:quince_jam) { create(:recipe, user:, name: "Quince jam", tags: [vegetarian_tag, vegan_tag]) }
   let!(:lemon_cake) { create(:recipe, user:, name: "Lemon cake", tags: [quick_tag]) }
@@ -92,6 +92,10 @@ RSpec.feature "recipes", js: true do
       expect(page).to have_css(".recipe:nth-child(4) .name", text: "Roast beef")
       expect(page).to have_css(".recipe:nth-child(4) .tags", text: "vegan → beef")
 
+      beef_lozenge = page.find(".recipe:nth-child(4) .tags .leftover-lozenge")
+      expect(beef_lozenge.style("color")["color"]).to eq "rgb(85, 0, 0)"
+      expect(beef_lozenge.style("background-color")["background-color"]).to eq "rgb(250, 250, 250)"
+
       find("##{dom_id(Recipe.last, "edit")}").click
       expect(page).to have_checked_field("vegan")
       expect(page).to have_checked_field("Produces leftovers")
@@ -128,17 +132,21 @@ RSpec.feature "recipes", js: true do
         expect(page).to have_text("Add Recipe")
       end
 
-      fill_in("Name", with: "Roast beef")
+      fill_in("Name", with: "Roast pork tacos")
       check("Uses leftovers")
-      choose("beef")
+      choose("pork")
       click_on("Save and close")
 
-      expect(page).to have_css(".recipe:nth-child(4) .name", text: "Roast beef")
-      expect(page).to have_css(".recipe:nth-child(4) .tags", text: "← beef")
+      expect(page).to have_css(".recipe:nth-child(4) .name", text: "Roast pork tacos")
+      expect(page).to have_css(".recipe:nth-child(4) .tags", text: "← pork")
+
+      pork_lozenge = page.find(".recipe:nth-child(4) .tags .leftover-lozenge")
+      expect(pork_lozenge.style("color")["color"]).to eq "rgb(170, 255, 170)"
+      expect(pork_lozenge.style("background-color")["background-color"]).to eq "rgb(17, 17, 17)"
 
       find("##{dom_id(Recipe.last, "edit")}").click
       expect(page).to have_checked_field("Uses leftovers")
-      expect(page).to have_checked_field("beef")
+      expect(page).to have_checked_field("pork")
       click_on("Cancel")
 
       click_link "Add new recipe"
@@ -147,7 +155,7 @@ RSpec.feature "recipes", js: true do
         expect(page).to have_text("Add Recipe")
       end
 
-      fill_in("Name", with: "Roast pork")
+      fill_in("Name", with: "Roast aubergine")
       check("Uses leftovers")
       click_on("Save and close")
 

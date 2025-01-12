@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :leftovers
+  resources :leftovers do
+    collection do
+      get :lozenge_style
+    end
+  end
   resource "logins", only: [:new, :destroy] do
     post :google
   end
