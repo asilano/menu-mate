@@ -352,30 +352,20 @@ main#root-page {
   }
 }
 
-.lozenge {
+.tag-lozenge, .leftover-lozenge {
   display: inline-block;
   padding: 0 7px;
   border-radius: 2em;
   font-size: 14px;
   line-height: 1.5em;
   font-family: var(--main-font-stack);
+  border: 1px solid var(--black);
+}
 
-  &.preview {
-    margin-bottom: 10px;
-  }
+.leftover-lozenge {
+  font-weight: bold;
 }
 
 .list .lozenge {
   font-size: inherit;
-}
-
-.tag-lozenge {
-  background-color: var(--pale-bg-grey);
-  border: 1px solid var(--black);
-  color: var(--black);
-}
-.leftover-lozenge {
-  background-color: var(--dark-bg-grey);
-  border: 1px solid var(--pale-border);
-  color: var(--white);
 }

@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :leftovers
+  resources :leftovers do
+    collection do
+      get :lozenge_style
+    end
+  end
   resource "logins", only: [:new, :destroy] do
     post :google
   end
@@ -12,7 +16,11 @@ Rails.application.routes.draw do
     end
   end
   resources :plan_days
-  resources :tags
+  resources :tags do
+    collection do
+      get :lozenge_style
+    end
+  end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
