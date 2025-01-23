@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_one  :menu_plan, dependent: :destroy
   has_many :plan_days, through: :menu_plan
 
-  validates :google_userid, presence: true
+  validates :google_userid, presence: true, uniqueness: true
 
   GOOGLE_TO_DB_ATTRIB_MAP = {
     "sub" => :google_userid,

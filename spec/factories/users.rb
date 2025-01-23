@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user do
-    google_userid { "987" }
+    google_userid { "987abc" }
     email { "astarion@vampire.com" }
     name { "Astarion Ancunin" }
     first_name { "Astarion" }

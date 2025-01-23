@@ -7,6 +7,6 @@ class Tag < ApplicationRecord
   has_many :recipes, through: :recipe_properties
   has_many :plan_days, through: :plan_day_restrictions
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { scope: :user }
   validates :colour, format: /\A#(?:[A-F0-9]{3}){1,2}\z/i
 end
