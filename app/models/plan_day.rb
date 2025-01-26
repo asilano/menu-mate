@@ -5,6 +5,8 @@ class PlanDay < ApplicationRecord
   has_many :plan_day_restrictions, dependent: :destroy
   has_many :tags, through: :plan_day_restrictions
 
+  validates :day_number, numericality: { integer_only: true, greater_than_or_equal: 0 }, uniqueness: { scope: :menu_plan }
+
   def candidate_recipes
     Recipe.find_by_sql(["
     SELECT * FROM recipes WHERE recipes.user_id = ? AND NOT EXISTS (

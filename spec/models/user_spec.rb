@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  subject(:user) { create(:user) }
+
+  it { should validate_presence_of :google_userid }
+  it { should validate_uniqueness_of :google_userid }
+
   context "creating a user via Google" do
     context "with full information" do
       let(:google_data) do
@@ -69,8 +74,6 @@ RSpec.describe User, type: :model do
   end
 
   context "updating a pre-existing user" do
-    let(:user) { create(:user) }
-
     context "with full information" do
       let(:google_data) do
         {
@@ -85,7 +88,7 @@ RSpec.describe User, type: :model do
       it "updates all fields except the Google sub" do
         user.update_from(google_data)
         expect(user.attributes).to match hash_including({
-          "google_userid" => "987",
+          "google_userid" => "987abc",
           "email" => "dave@example.com",
           "name" => "Dave Lister",
           "first_name" => "John",
@@ -106,7 +109,7 @@ RSpec.describe User, type: :model do
       it "only updates the information provided" do
         user.update_from(google_data)
         expect(user.attributes).to match hash_including({
-          "google_userid" => "987",
+          "google_userid" => "987abc",
           "email" => "dave@example.com",
           "name" => "Astarion Ancunin",
           "first_name" => "Astarion",

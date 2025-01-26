@@ -67,7 +67,7 @@ RSpec.describe "PlanDays", type: :request do
   context "when not logged in" do
     describe "GET /plan_day/:id/new" do
       let(:menu_plan) { create(:menu_plan) }
-      let(:plan_day) { create(:plan_day, menu_plan:) }
+      let(:plan_day) { create(:plan_day, menu_plan:, day_number: menu_plan.plan_days.count) }
 
       it "redirects to the root page" do
         get edit_plan_day_path(plan_day)
