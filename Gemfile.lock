@@ -81,7 +81,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
-    brakeman (7.0.0)
+    brakeman (8.0.2)
       racc
     builder (3.3.0)
     capybara (3.40.0)
@@ -147,21 +147,6 @@ GEM
       faraday (>= 1.0, < 3.a)
     google-logging-utils (0.1.0)
     google-protobuf (4.28.2)
-      bigdecimal
-      rake (>= 13)
-    google-protobuf (4.28.2-aarch64-linux)
-      bigdecimal
-      rake (>= 13)
-    google-protobuf (4.28.2-arm64-darwin)
-      bigdecimal
-      rake (>= 13)
-    google-protobuf (4.28.2-x86-linux)
-      bigdecimal
-      rake (>= 13)
-    google-protobuf (4.28.2-x86_64-darwin)
-      bigdecimal
-      rake (>= 13)
-    google-protobuf (4.28.2-x86_64-linux)
       bigdecimal
       rake (>= 13)
     googleauth (1.13.1)
@@ -471,7 +456,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.2.2p53
+  ruby 3.4.5p51
 
 BUNDLED WITH
-   2.5.6
+  4.0.0

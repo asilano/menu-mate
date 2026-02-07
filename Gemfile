@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # ruby file: ".ruby-version"
-ruby "~> 3.2.0"
+ruby "~> 3.4.0"
 
 # Use main development branch of Rails
 gem "rails", "~> 7.2"
