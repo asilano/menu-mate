@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_23_220455) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_15_221346) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "active_sessions", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -72,6 +72,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_23_220455) do
     t.bigint "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
     t.index ["menu_plan_id"], name: "index_plan_days_on_menu_plan_id"
     t.index ["recipe_id"], name: "index_plan_days_on_recipe_id"
   end
