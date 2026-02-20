@@ -5,6 +5,7 @@
     .field.actions
   = render partial: "tag", collection: @tags, locals: { new_tag_id: @new_tag.id }
 
+= turbo_stream.remove_class dom_id(@new_tag), "new"
 
 - if @another
   = turbo_stream.replace "modal" do
