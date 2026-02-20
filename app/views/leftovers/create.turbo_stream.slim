@@ -5,6 +5,8 @@
     .field.actions
   = render partial: "leftovers/leftover", collection: @leftovers, locals: { new_leftover_id: @new_leftover.id }
 
+= turbo_stream.remove_class dom_id(@new_leftover), "new"
+
 - if @another
   = turbo_stream.replace "modal" do
     = render partial: "shared/taglike_modal"
