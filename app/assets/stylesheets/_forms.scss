@@ -103,3 +103,8 @@ fieldset.checkboxes {
     margin-bottom: 2px;
   }
 }
+
+span[contenteditable]:not([contenteditable=false]) {
+  text-decoration: underline dotted;
+  text-underline-offset: 5px;
+}

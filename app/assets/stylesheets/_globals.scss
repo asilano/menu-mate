@@ -31,3 +31,7 @@
 .hidden {
   visibility: hidden;
 }
+
+.not-in-flow {
+  display: none !important;
+}

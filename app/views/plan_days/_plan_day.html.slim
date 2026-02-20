@@ -1,9 +1,13 @@
-.plan-day id=dom_id(plan_day)
+turbo-frame.plan-day id=dom_id(plan_day) data-controller="day-name-edit"
+  = form_with model: plan_day, data: { day_name_edit_target: "updateForm" } do |f|
+    = f.hidden_field :name, data: { day_name_edit_target: "nameField" }
+    = tag.input(type: :hidden, name: "redraw_day", value: 0)
+    = f.submit "Submit", class: "not-in-flow", hidden: true, data: { day_name_edit_target: "submitButton" }
+  = link_to "Reload", edit_menu_plan_path, class: "not-in-flow", hidden: true, data: { day_name_edit_target: "reloadLink" }
   .title
-    span Day #{plan_day.day_number + 1}
+    = tag.span(day_name(plan_day), contenteditable: "plaintext-only", data: { day_name_edit_target: "name", action: "input->day-name-edit#submit focusout->day-name-edit#editDone" })
     = link_to "Tags", edit_plan_day_path(plan_day), class: "button", data: { turbo_frame: "modal" }
   .meal
     = plan_day.recipe&.name || "No suitable recipe"
   .field.tags
     = render partial: "shared/tag_lozenge", collection: plan_day.tags, as: :tag
-

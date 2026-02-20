@@ -11,5 +11,23 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe PlanDaysHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "day_name" do
+    subject { day_name(plan_day) }
+
+    context "when the day has no name" do
+      let(:plan_day) { build(:plan_day, day_number: 3) }
+
+      it "returns the day number" do
+        expect(subject).to eq "Day 4"
+      end
+    end
+
+    context "when the day has a name" do
+      let(:plan_day) { build(:plan_day, name: "Candlemass") }
+
+      it "returns that name" do
+        expect(subject).to eq "Candlemass"
+      end
+    end
+  end
 end
