@@ -11,7 +11,13 @@ class PlanDaysController < ApplicationController
 
   def update
     if !@plan_day.update(plan_day_params)
-      render :edit
+      return render :edit
+    end
+
+    @close_modal = cast_to_bool(params[:close_modal])
+
+    unless cast_to_bool(params[:redraw_day])
+      head :no_content
     end
   end
 
@@ -23,6 +29,7 @@ class PlanDaysController < ApplicationController
 
   def plan_day_params
     params.require(:plan_day).permit([
+      :name,
       tag_ids: []
     ])
   end

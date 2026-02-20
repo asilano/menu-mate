@@ -1,4 +1,6 @@
 = form_for @plan_day do |f|
+  = tag.input(type: :hidden, name: "close_modal", value: 1)
+  = tag.input(type: :hidden, name: "redraw_day", value: 1)
   - if @plan_day.errors.any?
     #error_explanation
       h2

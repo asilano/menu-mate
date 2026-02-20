@@ -21,5 +21,13 @@ RSpec.describe PlanDaysHelper, type: :helper do
         expect(subject).to eq "Day 4"
       end
     end
+
+    context "when the day has a name" do
+      let(:plan_day) { build(:plan_day, name: "Candlemass") }
+
+      it "returns that name" do
+        expect(subject).to eq "Candlemass"
+      end
+    end
   end
 end

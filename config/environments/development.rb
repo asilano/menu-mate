@@ -71,4 +71,7 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
 
   config.hotwire.spark.html_extensions += %w[ slim ]
+
+  config.assets.debug = true
+  config.assets.compile = true
 end
