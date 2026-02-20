@@ -90,6 +90,7 @@ RSpec.feature "menu_plans", js: true do
         click_on("Save and close")
       end
 
+      expect(page).not_to have_css("#modal *")
       expect(page).to have_css(".plan-day:nth-child(1)", text: "quick vegan")
       vegan_lozenge = page.find(".plan-day:nth-child(1) .tags .tag-lozenge:nth-child(2)")
       expect(vegan_lozenge.style("background-color")["background-color"]).to eq "rgb(170, 187, 255)"
