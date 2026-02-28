@@ -1,11 +1,20 @@
 #menu-planner
   h1 Plan a menu
-  = form_with model: @menu_plan, url: update_number_of_days_menu_plan_path, method: :post do |f|
-    .field.short
-      .label= f.label :num_days, "Number of days"
-      .input-inline-button
-        .input= f.number_field :num_days, value: @menu_plan.plan_days.count
-        = f.submit "Set count", class: "inline-button"
+  .stack
+    = form_with model: @menu_plan, url: update_number_of_days_menu_plan_path do |f|
+      .field.short
+        .label= f.label :num_days, "Number of days"
+        .input-inline-button
+          .input= f.number_field :num_days, value: @menu_plan.plan_days.count
+          = f.submit "Set count", class: "inline-button"
+    div data={ controller: "auto-name-days" }
+      button data={"auto-name-days-target": "initButton", action: "auto-name-days#start"} Auto-name days
+      = form_with model: @menu_plan, url: update_auto_day_names_menu_plan_path, class: "side-by-side not-in-flow", data: { auto_name_days_target: "form" } do |f|
+        span Auto-name days starting on
+        = f.weekday_select :start_day, {selected: @menu_plan.plan_days.first.name}
+        = f.submit "Go"
+        button.negative#cancel-auto-name data={action: "auto-name-days#stop"} Cancel
+
   hr
   #menu-plan data={controller: "menu-plan", "menu-plan-count-value": @menu_plan.plan_days.count}
     = render "menu_plan"

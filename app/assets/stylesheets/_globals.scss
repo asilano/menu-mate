@@ -35,3 +35,9 @@
 .not-in-flow {
   display: none !important;
 }
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+}

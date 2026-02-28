@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   resources :recipes
   resource :menu_plan, only: %i[new edit] do
     member do
-      post :update_number_of_days
+      patch :update_number_of_days
+      patch :update_auto_day_names
       post :fill_recipes
     end
   end
