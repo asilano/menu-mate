@@ -44,10 +44,10 @@ RSpec.describe "MenuPlans", type: :request do
       end
     end
 
-    describe "POST /menu_plan/update_number_of_days" do
+    describe "PATCH /menu_plan/update_number_of_days" do
       let!(:menu_plan) { create(:menu_plan, user:) }
       it "has a template for the specified days" do
-        post update_number_of_days_menu_plan_path, params: {
+        patch update_number_of_days_menu_plan_path, params: {
           menu_plan: {
             num_days: 5
           }
@@ -59,7 +59,7 @@ RSpec.describe "MenuPlans", type: :request do
 
         expect(response.body).not_to include "Day 6"
 
-        post update_number_of_days_menu_plan_path, params: {
+        patch update_number_of_days_menu_plan_path, params: {
           menu_plan: {
             num_days: 8
           }
@@ -70,6 +70,23 @@ RSpec.describe "MenuPlans", type: :request do
         end
 
         expect(response.body).not_to include "Day 9"
+      end
+    end
+
+    describe "PATCH /menu_plan/update_auto_name_days" do
+      let!(:menu_plan) { create(:menu_plan, user:, num_days: 5) }
+      it "has a template for the specified days" do
+        patch update_auto_day_names_menu_plan_path, params: {
+          menu_plan: {
+            start_day: "Tuesday"
+          }
+        }, as: :turbo_stream
+
+        %w[Tuesday Wednesday Thursday Friday Saturday].each do |day|
+          expect(response.body).to include day
+        end
+
+        expect(response.body).not_to include "Sunday"
       end
     end
 

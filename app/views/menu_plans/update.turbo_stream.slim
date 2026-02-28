@@ -1,3 +1,5 @@
 = turbo_stream.replace "menu-plan" do
   #menu-plan
     = render "menu_plan"
+
+= turbo_stream.dispatch "click", target: "cancel-auto-name"

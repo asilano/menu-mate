@@ -34,6 +34,20 @@ class MenuPlansController < ApplicationController
     render "update"
   end
 
+  def update_auto_day_names
+    start_day = params.dig(:menu_plan, :start_day)
+    day_names = I18n.t("date.day_names")
+
+    return head :unprocessable_content unless day_names.include?(start_day)
+
+    day_names = day_names.rotate(day_names.index(start_day)).cycle
+    @menu_plan.plan_days.zip(day_names).each do |day, name|
+      day.update(name:)
+    end
+
+    render "update"
+  end
+
   def fill_recipes
     @menu_plan.fill
     render "update"
