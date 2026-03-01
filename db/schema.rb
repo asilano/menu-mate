@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_15_221346) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_01_221231) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -114,6 +114,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_15_221346) do
     t.string "picture_uri"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "last_auto_start_day"
     t.index ["google_userid"], name: "index_users_on_google_userid", unique: true
   end
 
