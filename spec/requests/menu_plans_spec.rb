@@ -76,11 +76,13 @@ RSpec.describe "MenuPlans", type: :request do
     describe "PATCH /menu_plan/update_auto_name_days" do
       let!(:menu_plan) { create(:menu_plan, user:, num_days: 5) }
       it "has a template for the specified days" do
-        patch update_auto_day_names_menu_plan_path, params: {
-          menu_plan: {
-            start_day: "Tuesday"
-          }
-        }, as: :turbo_stream
+        expect do
+          patch update_auto_day_names_menu_plan_path, params: {
+            menu_plan: {
+              start_day: "Tuesday"
+            }
+          }, as: :turbo_stream
+        end.to change { user.reload.last_auto_start_day }.to "Tuesday"
 
         %w[Tuesday Wednesday Thursday Friday Saturday].each do |day|
           expect(response.body).to include day

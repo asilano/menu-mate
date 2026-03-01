@@ -11,7 +11,7 @@
       button data={"auto-name-days-target": "initButton", action: "auto-name-days#start"} Auto-name days
       = form_with model: @menu_plan, url: update_auto_day_names_menu_plan_path, class: "side-by-side not-in-flow", data: { auto_name_days_target: "form" } do |f|
         span Auto-name days starting on
-        = f.weekday_select :start_day, {selected: @menu_plan.plan_days.first.name}
+        = f.weekday_select :start_day, {selected: selected_auto_day(@menu_plan)}
         = f.submit "Go"
         button.negative#cancel-auto-name data={action: "auto-name-days#stop"} Cancel
 

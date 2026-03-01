@@ -40,6 +40,7 @@ class MenuPlansController < ApplicationController
 
     return head :unprocessable_content unless day_names.include?(start_day)
 
+    current_user.update(last_auto_start_day: start_day)
     day_names = day_names.rotate(day_names.index(start_day)).cycle
     @menu_plan.plan_days.zip(day_names).each do |day, name|
       day.update(name:)
