@@ -1,13 +1,13 @@
 class RecipesController < ApplicationController
   include TagHandling
 
-  before_action :authenticate_user!
+  before_action :require_authentication
   before_action -> { ensure_turbo_frame(recipes_path) }, only: [:new, :edit]
   before_action :load_recipe, only: %i[edit update destroy]
   before_action :load_tags, only: %i[new create edit update]
 
   def index
-    @recipes = current_user.recipes.order(:name)
+    @recipes = Current.user.recipes.order(:name)
   end
 
   def new
@@ -17,7 +17,7 @@ class RecipesController < ApplicationController
   end
 
   def create
-    @new_recipe = current_user.recipes.build(recipe_params)
+    @new_recipe = Current.user.recipes.build(recipe_params)
 
     if @new_recipe.save
       @another = params.has_key?(:another)
@@ -25,7 +25,7 @@ class RecipesController < ApplicationController
       @recipe.build_leftovers_source
       @recipe.build_leftovers_sink
 
-      @recipes = current_user.recipes.order(:name)
+      @recipes = Current.user.recipes.order(:name)
     else
       @recipe = @new_recipe
       @recipe.build_leftovers_source unless @recipe.leftovers_source
@@ -55,7 +55,7 @@ class RecipesController < ApplicationController
   private
 
   def load_recipe
-    @recipe = current_user.recipes.find_by(id: params[:id])
+    @recipe = Current.user.recipes.find_by(id: params[:id])
   end
 
   def recipe_params

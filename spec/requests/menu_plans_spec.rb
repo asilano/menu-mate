@@ -4,7 +4,7 @@ RSpec.describe "MenuPlans", type: :request do
   context "when logged in" do
     let(:user) { create(:user) }
 
-    before { login_as user }
+    before { sign_in_as user }
 
     describe "GET /menu_plans/new" do
       it "redirects to the edit path" do

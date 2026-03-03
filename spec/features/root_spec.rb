@@ -7,7 +7,7 @@ RSpec.feature "root requests", js: true do
     let(:user) { create(:user) }
 
     before do
-      allow(Current).to receive(:user).and_return(user)
+      sign_in_as user
     end
 
     it "all the links work" do

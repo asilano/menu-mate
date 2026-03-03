@@ -1,12 +1,12 @@
 class MenuPlansController < ApplicationController
-  before_action :authenticate_user!
+  before_action :require_authentication
   before_action :load_menu_plan, except: :new
 
   def new
-    MenuPlan.where(user: current_user).destroy_all
-    menu_plan = current_user.create_menu_plan
+    MenuPlan.where(user: Current.user).destroy_all
+    menu_plan = Current.user.create_menu_plan
 
-    meals = current_user.recipes.shuffle
+    meals = Current.user.recipes.shuffle
     7.times do |n|
       menu_plan.plan_days.create(day_number: n, recipe: meals[n])
     end
@@ -25,7 +25,7 @@ class MenuPlansController < ApplicationController
       @menu_plan.plan_days.last(old_day_count - new_day_count).each(&:destroy)
       @menu_plan.plan_days.reload
     else
-      meals = current_user.recipes.where.not(id: used_recipe_ids).shuffle
+      meals = Current.user.recipes.where.not(id: used_recipe_ids).shuffle
       old_day_count.upto(new_day_count - 1) do |n|
         @menu_plan.plan_days.create(day_number: n, recipe: meals[n - old_day_count])
       end
@@ -40,7 +40,7 @@ class MenuPlansController < ApplicationController
 
     return head :unprocessable_content unless day_names.include?(start_day)
 
-    current_user.update(last_auto_start_day: start_day)
+    Current.user.update(last_auto_start_day: start_day)
     day_names = day_names.rotate(day_names.index(start_day)).cycle
     @menu_plan.plan_days.zip(day_names).each do |day, name|
       day.update(name:)
@@ -57,6 +57,6 @@ class MenuPlansController < ApplicationController
   private
 
   def load_menu_plan
-    @menu_plan = current_user.menu_plan
+    @menu_plan = Current.user.menu_plan
   end
 end

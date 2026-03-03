@@ -1,43 +1,35 @@
-module Test
-  class SessionsController < ApplicationController
-    def create
-      vars = params.permit(session_vars: {})
-      vars[:session_vars].each do |var, value|
-        session[var] = value
+module SessionTestHelper
+  module Request
+    def sign_in_as(user)
+      Current.session = user.active_sessions.create!
+
+      ActionDispatch::TestRequest.create.cookie_jar.tap do |cookie_jar|
+        cookie_jar.signed[:session_id] = Current.session.id
+        cookies["session_id"] = cookie_jar[:session_id]
       end
-      head :created
+    end
+
+    def sign_out
+      Current.session&.destroy!
+      cookies.delete("session_id")
     end
   end
 
-  module RequestSessionHelper
-    def set_session(vars = {})
-      post test_session_path, params: { session_vars: vars }
-      expect(response).to have_http_status(:created)
+  module Feature
+    def sign_in_as(user)
+      Current.session = user.active_sessions.create!
 
-      vars.each_key do |var|
-        expect(session[var]).to be_present
+      ActionDispatch::TestRequest.create.cookie_jar.tap do |cookie_jar|
+        cookie_jar.signed[:session_id] = Current.session.id
+        browser.cookies.set(name: "session_id", value: cookie_jar[:session_id], domain: Capybara.server_host)
       end
     end
-  end
 
-  module LoginHelper
-    def login_as(user)
-      active_session = user.active_sessions.create!
-      set_session(current_active_session_id: active_session.id)
+    def sign_out
+      Current.session&.destroy!
+      browser.cookies.remove(name: "session_id")
     end
-  end
-end
 
-RSpec.configure do |config|
-  config.include Test::RequestSessionHelper
-  config.include Test::LoginHelper
-
-  config.before(:all, type: :request) do
-    # https://github.com/rails/rails/blob/d15a694b40922f15c81042acaeede9e7df7bbb75/actionpack/lib/action_dispatch/routing/route_set.rb#L423
-    Rails.application.routes.send(:eval_block, Proc.new do
-      namespace :test do
-        resource :session, only: %i[create]
-      end
-    end)
+    def browser = Capybara.current_session.driver.browser
   end
 end

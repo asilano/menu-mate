@@ -6,7 +6,7 @@ RSpec.describe "PlanDays", type: :request do
     let(:menu_plan) { create(:menu_plan, user:) }
     let(:plan_day) { menu_plan.plan_days.first }
 
-    before { login_as user }
+    before { sign_in_as user }
 
     describe "GET /plan_day/:id/edit" do
       it "returns a turbo_stream to edit the day" do
