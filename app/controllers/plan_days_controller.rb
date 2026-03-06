@@ -1,7 +1,7 @@
 class PlanDaysController < ApplicationController
   include TagHandling
 
-  before_action :authenticate_user!
+  before_action :require_authentication
   before_action -> { ensure_turbo_frame(edit_menu_plan_path) }, only: [:edit]
   before_action :load_plan_day
   before_action :load_tags, only: :edit
@@ -24,7 +24,7 @@ class PlanDaysController < ApplicationController
   private
 
   def load_plan_day
-    @plan_day = current_user.plan_days.find(params[:id])
+    @plan_day = Current.user.plan_days.find(params[:id])
   end
 
   def plan_day_params

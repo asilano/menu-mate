@@ -9,7 +9,7 @@ RSpec.feature "tags", js: true do
   let!(:vegan) { create(:tag, user:, name: "vegan") }
 
   before do
-    allow(Current).to receive(:user).and_return(user)
+    sign_in_as user
   end
 
   describe "on the tags index page" do

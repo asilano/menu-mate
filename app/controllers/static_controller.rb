@@ -1,5 +1,5 @@
 class StaticController < ApplicationController
-  before_action :authenticate_user!, only: []
+  before_action :require_authentication, only: []
 
   def root
     @suppress_autologin = flash[:suppress_autologin]

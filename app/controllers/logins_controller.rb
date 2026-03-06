@@ -1,4 +1,5 @@
 class LoginsController < ApplicationController
+  allow_unauthenticated_access only: %i[ google ]
   before_action :redirect_if_authenticated, only: :google
   before_action :validate_google_csrf, only: :google
 
@@ -16,17 +17,16 @@ class LoginsController < ApplicationController
       user = User.create_from @google_account_info
     end
 
-    after_login_path = :root
     if user&.persisted?
-      after_login_path = session[:user_return_to] || :root
-      login user
+      start_new_session_for user
+      redirect_to after_authentication_url
+    else
+      redirect_to root_path
     end
-
-    redirect_to after_login_path
   end
 
   def destroy
-    logout
+    terminate_session
     flash[:suppress_autologin] = true
     redirect_to :root
   end

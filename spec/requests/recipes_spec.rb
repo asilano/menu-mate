@@ -4,7 +4,7 @@ RSpec.describe "Recipes", type: :request do
   context "when logged in" do
     let(:user) { create(:user) }
 
-    before { login_as user }
+    before { sign_in_as user }
 
     describe "GET /recipes" do
       it "returns success" do

@@ -15,7 +15,8 @@ RSpec.feature "menu_plans", js: true do
   let(:recipes_stub) { double }
 
   before do
-    allow(Current).to receive(:user).and_return(user)
+    sign_in_as user
+
     allow(user).to receive(:recipes).and_return(recipes_stub)
     allow(recipes_stub).to receive(:shuffle).and_return ([
       syllabub,

@@ -1,7 +1,7 @@
 class LeftoversController < ApplicationController
   include TagHandling
 
-  before_action :authenticate_user!
+  before_action :require_authentication
   before_action -> { ensure_turbo_frame(leftovers_path) }, only: [:new, :edit]
   before_action :load_leftover, only: %i[edit update destroy]
 
@@ -10,7 +10,7 @@ class LeftoversController < ApplicationController
   end
 
   def create
-    @new_leftover = current_user.leftovers.build(leftover_params)
+    @new_leftover = Current.user.leftovers.build(leftover_params)
 
     if @new_leftover.save
       @another = params.has_key?(:another)
@@ -45,7 +45,7 @@ class LeftoversController < ApplicationController
   private
 
   def load_leftover
-    @leftover = current_user.leftovers.find_by(id: params[:id])
+    @leftover = Current.user.leftovers.find_by(id: params[:id])
   end
 
   def leftover_params

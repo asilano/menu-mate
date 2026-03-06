@@ -2,44 +2,56 @@ module Authentication
   extend ActiveSupport::Concern
 
   included do
-    before_action :current_user
-    helper_method :current_user
-    helper_method :user_signed_in?
+    before_action :require_authentication
+    helper_method :authenticated?
   end
 
-  def login(user)
-    reset_session
-    active_session = user.active_sessions.create!
-    session[:current_active_session_id] = active_session.id
-  end
-
-  def logout
-    active_session = ActiveSession.find_by(id: session[:current_active_session_id])
-    reset_session
-    active_session&.destroy!
-  end
-
-  def redirect_if_authenticated
-    redirect_to root_path if user_signed_in?
-  end
-
-  def authenticate_user!
-    store_location
-    redirect_to root_path unless user_signed_in?
+  class_methods do
+    def allow_unauthenticated_access(**options)
+      skip_before_action :require_authentication, **options
+    end
   end
 
   private
 
-  def current_user
-    Current.user ||= session[:current_active_session_id] &&
-      ActiveSession.find_by(id: session[:current_active_session_id]).user
+  def authenticated?
+    resume_session
   end
 
-  def user_signed_in?
-    Current.user.present?
+  def require_authentication
+    resume_session || request_authentication
   end
 
-  def store_location
-    session[:user_return_to] = request.original_url if request.get? && request.local?
+  def resume_session
+    Current.session ||= find_session_by_cookie
+  end
+
+  def find_session_by_cookie
+    ActiveSession.find_by(id: cookies.signed[:session_id]) if cookies.signed[:session_id]
+  end
+
+  def request_authentication
+    session[:return_to_after_authenticating] = request.url
+    redirect_to root_path
+  end
+
+  def after_authentication_url
+    (session.delete(:return_to_after_authenticating) || root_url)
+  end
+
+  def start_new_session_for(user)
+    user.active_sessions.create!.tap do |session|
+      Current.session = session
+      cookies.signed.permanent[:session_id] = { value: session.id, httponly: true, same_site: :lax }
+    end
+  end
+
+  def terminate_session
+    Current.session.destroy
+    cookies.delete(:session_id)
+  end
+
+  def redirect_if_authenticated
+    redirect_to root_path if authenticated?
   end
 end

@@ -1,7 +1,7 @@
 class TagsController < ApplicationController
   include TagHandling
 
-  before_action :authenticate_user!
+  before_action :require_authentication
   before_action -> { ensure_turbo_frame(tags_path) }, only: [:new, :edit]
   before_action :load_tag, only: %i[edit update destroy]
   before_action :load_tags, only: :index
@@ -14,7 +14,7 @@ class TagsController < ApplicationController
   end
 
   def create
-    @new_tag = current_user.tags.build(tag_params)
+    @new_tag = Current.user.tags.build(tag_params)
 
     if @new_tag.save
       @another = params.has_key?(:another)
@@ -49,7 +49,7 @@ class TagsController < ApplicationController
   private
 
   def load_tag
-    @tag = current_user.tags.find_by(id: params[:id])
+    @tag = Current.user.tags.find_by(id: params[:id])
   end
 
   def tag_params
