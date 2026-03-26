@@ -66,6 +66,14 @@ RSpec.feature "tags", js: true do
 
       expect(page).to have_css("#modal #error_explanation")
 
+      fill_in("Name", with: "slow")
+      check("Permissive")
+      expect(page).to have_css("#modal .preview", text: "×slow")
+      click_on("Save")
+
+      expect(page).to have_css("##{dom_id(quick, "name")}", text: "×slow")
+
+      find("##{dom_id(vegan, "edit")}").click
       find("#modal-close").click
       expect(page).not_to have_css("#modal div")
 
