@@ -40,6 +40,42 @@ form .field {
       }
     }
   }
+
+  input:where([type="checkbox"][role="switch"]) {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    font-size: inherit;
+    width: 2em;
+    height: 1em;
+    box-sizing: content-box;
+    border: 1px solid;
+    border-radius: 1em;
+    vertical-align: text-bottom;
+    margin: auto 5px;
+    color: inherit;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(0, -50%);
+      box-sizing: border-box;
+      width: 0.7em;
+      height: 0.7em;
+      margin: 0 0.15em;
+      border: 1px solid;
+      border-radius: 50%;
+      background: currentcolor;
+      transition: left 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+
+    &:checked::before {
+      left: 1em;
+    }
+  }
 }
 
 .side-by-side {
@@ -59,6 +95,21 @@ form .field {
   }
 }
 
+.two-by-two {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  grid-auto-flow: row;
+  gap: 5px;
+
+  .subgrid {
+    grid-row: span 2;
+    display: grid;
+    grid-template-rows: subgrid;
+    align-items: center;
+  }
+}
+
 .input-inline-button {
   display: flex;
   .input {
@@ -73,6 +124,10 @@ form .field {
   .inline-button {
     height: 30px;
   }
+}
+
+fieldset {
+  margin: 5px 0;
 }
 
 fieldset.checkboxes {
@@ -107,4 +162,10 @@ fieldset.checkboxes {
 span[contenteditable]:not([contenteditable=false]) {
   text-decoration: underline dotted;
   text-underline-offset: 5px;
+}
+
+.help {
+  margin-top: 5px;
+  color: gray;
+  font-size: small;
 }

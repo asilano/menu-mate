@@ -11,5 +11,21 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe TagsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#tag_display_name" do
+    let(:preview_tag) { build(:tag, name: "") }
+    let(:permissive_tag) { build(:tag, name: "quick") }
+    let(:restrictive_tag) { build(:tag, name: "slow", restrictive: true) }
+
+    it "returns the name on a permissive tag as a span" do
+      expect(tag_display_name(permissive_tag)).to eq '<span class="tag-name">quick</span>'
+    end
+
+    it "returns the name prefixed with a cross on a restrictive tag" do
+      expect(tag_display_name(restrictive_tag)).to eq '<span class="restrictive-indicator">×</span><span class="tag-name">slow</span>'
+    end
+
+    it "returns 'preview' on an unnamed tag" do
+      expect(tag_display_name(preview_tag)).to eq '<span class="tag-name">preview</span>'
+    end
+  end
 end

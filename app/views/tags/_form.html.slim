@@ -7,15 +7,36 @@
         - @tag.errors.full_messages.each do |msg|
           li= msg
 
-  .preview.tag-lozenge data-lozenge-preview-target="preview" style=tag_colours_css(@tag) = @tag.name.presence || "preview"
+  .preview.tag-lozenge data-lozenge-preview-target="preview" style=tag_colours_css(@tag)
+    span.restrictive-indicator data-lozenge-preview-target="restrictive"= "×" if @tag.restrictive
+    span.tag-name data-lozenge-preview-target="name"= @tag.name.presence || "preview"
 
-  .field
-    .label= f.label :name
-    .input= f.text_field :name, placeholder: "vegetarian", autofocus: true, data: { action: "lozenge-preview#nameChange" }
+  fieldset
+    .two-by-two
+      .field.subgrid
+        .label= f.label :name
+        .input= f.text_field :name, placeholder: "vegetarian", autofocus: true, data: { action: "lozenge-preview#nameChange" }
 
-  .field
-    .label= f.label :colour
-    .input.colour= f.color_field :colour, data: { action: "lozenge-preview#colourChange" }
+      .field.subgrid
+        .label= f.label :colour
+        .input.colour= f.color_field :colour, data: { action: "lozenge-preview#colourChange" }
+
+  fieldset
+    .field
+      .label= f.label :restrictive do
+        span Permissive
+        = f.check_box :restrictive, role: "switch", data: { action: "lozenge-preview#restrictiveChange" }
+        span Restrictive
+    .help
+      | A menu day with a <strong>permissive</strong> tag can only be filled by a meal with the same tag. A meal with a permissive tag can fill a menu day without the tag.
+    .help
+      = render "shared/tag_lozenge", tag: Tag.new(name: "quick", colour: "#808080")
+      | would be a good permissive tag.
+    .help
+      | A meal with a <strong>restrictive</strong> tag can only fill a menu day with the same tag. A menu day with a restrictive tag can be filled by a meal without the tag.
+    .help
+      = render "shared/tag_lozenge", tag: Tag.new(name: "slow", colour: "#808080", restrictive: true)
+      | would be a good restrictive tag.
 
   .button-area
     - if !@tag.persisted?
