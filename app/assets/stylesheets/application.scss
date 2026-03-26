@@ -360,6 +360,10 @@ main#root-page {
   line-height: 1.5em;
   font-family: var(--main-font-stack);
   border: 1px solid var(--black);
+
+  .restrictive-indicator {
+    margin-right: 2px;
+  }
 }
 
 .leftover-lozenge {

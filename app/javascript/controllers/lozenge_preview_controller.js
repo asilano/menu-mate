@@ -3,7 +3,7 @@ import debounce from "src/debounce"
 
 // Connects to data-controller="lozenge-preview"
 export default class extends Controller {
-  static targets = ["preview"]
+  static targets = ["preview", "restrictive", "name"]
   static values = { styleUrl: String }
 
   connect() {
@@ -11,7 +11,15 @@ export default class extends Controller {
   }
 
   nameChange(event) {
-    this.previewTarget.textContent = event.target.value;
+    this.nameTarget.textContent = event.target.value;
+  }
+
+  restrictiveChange(event) {
+    if (event.target.checked) {
+      this.restrictiveTarget.textContent = "×"
+    } else {
+      this.restrictiveTarget.textContent = ""
+    }
   }
 
   colourChange = async (event) => {

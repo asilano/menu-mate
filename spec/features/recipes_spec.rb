@@ -5,6 +5,7 @@ require "rails_helper"
 RSpec.feature "recipes", js: true do
   let(:user) { create(:user) }
   let!(:quick_tag) { create(:tag, user:, name: "quick", colour: "#005050") }
+  let!(:slow_restrictive_tag) { create(:tag, user:, name: "slow", colour: "#009999", restrictive: true) }
   let!(:vegetarian_tag) { create(:tag, user:, name: "vegetarian") }
   let!(:vegan_tag) { create(:tag, user:, name: "vegan") }
   let!(:beef_leftovers) { create(:leftover, user:, name: "beef", colour: "#550000") }
@@ -12,6 +13,7 @@ RSpec.feature "recipes", js: true do
   let!(:zabaglione) { create(:recipe, user:, name: "Zabaglione") }
   let!(:quince_jam) { create(:recipe, user:, name: "Quince jam", tags: [vegetarian_tag, vegan_tag]) }
   let!(:lemon_cake) { create(:recipe, user:, name: "Lemon cake", tags: [quick_tag]) }
+  let!(:burnt_ends) { create(:recipe, user:, name: "Burnt ends", tags: [slow_restrictive_tag]) }
 
   before do
     sign_in_as user
@@ -20,18 +22,20 @@ RSpec.feature "recipes", js: true do
   describe "on the recipes index page" do
     it "lists the recipes alphabetically" do
       visit "/recipes"
-      expect(page).to have_css(".recipe:nth-child(2) .name", text: "Lemon cake")
-      expect(page).to have_css(".recipe:nth-child(3) .name", text: "Quince jam")
-      expect(page).to have_css(".recipe:nth-child(4) .name", text: "Zabaglione")
+      expect(page).to have_css(".recipe:nth-child(2) .name", text: "Burnt ends")
+      expect(page).to have_css(".recipe:nth-child(3) .name", text: "Lemon cake")
+      expect(page).to have_css(".recipe:nth-child(4) .name", text: "Quince jam")
+      expect(page).to have_css(".recipe:nth-child(5) .name", text: "Zabaglione")
     end
 
     it "includes the coloured tags on the recipe line" do
       visit "/recipes"
-      expect(page).to have_css(".recipe:nth-child(2) .tags", text: "quick")
-      expect(page).to have_css(".recipe:nth-child(3) .tags", text: "vegetarian vegan")
-      expect(page).to have_css(".recipe:nth-child(4) .tags", text: "")
+      expect(page).to have_css(".recipe:nth-child(2) .tags", text: "×slow")
+      expect(page).to have_css(".recipe:nth-child(3) .tags", text: "quick")
+      expect(page).to have_css(".recipe:nth-child(4) .tags", text: "vegetarian vegan")
+      expect(page).to have_css(".recipe:nth-child(5) .tags", text: "")
 
-      quick_lozenge = page.find(".recipe:nth-child(2) .tags .tag-lozenge")
+      quick_lozenge = page.find(".recipe:nth-child(3) .tags .tag-lozenge")
       expect(quick_lozenge.style("background-color")["background-color"]).to eq "rgb(0, 80, 80)"
       expect(quick_lozenge.style("color")["color"]).to eq "rgb(250, 250, 250)"
     end
@@ -47,7 +51,7 @@ RSpec.feature "recipes", js: true do
       click_on("Save and close")
 
       expect(page).not_to have_css("#modal div")
-      expect(page).to have_css(".recipe:nth-child(4) .name", text: "Venison stew")
+      expect(page).to have_css(".recipe:nth-child(5) .name", text: "Venison stew")
 
       click_link "Add new recipe"
       click_on("Save and close")
@@ -57,7 +61,7 @@ RSpec.feature "recipes", js: true do
       fill_in("Name", with: "Macaroni cheese")
       click_on("Save and add another")
 
-      expect(page).to have_css(".recipe:nth-child(3) .name", text: "Macaroni cheese")
+      expect(page).to have_css(".recipe:nth-child(4) .name", text: "Macaroni cheese")
 
       fill_in("Name", with: "Apple pie")
       check("quick")
@@ -89,10 +93,10 @@ RSpec.feature "recipes", js: true do
       check("vegan")
       click_on("Save and close")
 
-      expect(page).to have_css(".recipe:nth-child(4) .name", text: "Roast beef")
-      expect(page).to have_css(".recipe:nth-child(4) .tags", text: "vegan → beef")
+      expect(page).to have_css(".recipe:nth-child(5) .name", text: "Roast beef")
+      expect(page).to have_css(".recipe:nth-child(5) .tags", text: "vegan → beef")
 
-      beef_lozenge = page.find(".recipe:nth-child(4) .tags .leftover-lozenge")
+      beef_lozenge = page.find(".recipe:nth-child(5) .tags .leftover-lozenge")
       expect(beef_lozenge.style("color")["color"]).to eq "rgb(85, 0, 0)"
       expect(beef_lozenge.style("background-color")["background-color"]).to eq "rgb(250, 250, 250)"
 
@@ -137,10 +141,10 @@ RSpec.feature "recipes", js: true do
       choose("pork")
       click_on("Save and close")
 
-      expect(page).to have_css(".recipe:nth-child(4) .name", text: "Roast pork tacos")
-      expect(page).to have_css(".recipe:nth-child(4) .tags", text: "← pork")
+      expect(page).to have_css(".recipe:nth-child(5) .name", text: "Roast pork tacos")
+      expect(page).to have_css(".recipe:nth-child(5) .tags", text: "← pork")
 
-      pork_lozenge = page.find(".recipe:nth-child(4) .tags .leftover-lozenge")
+      pork_lozenge = page.find(".recipe:nth-child(5) .tags .leftover-lozenge")
       expect(pork_lozenge.style("color")["color"]).to eq "rgb(170, 255, 170)"
       expect(pork_lozenge.style("background-color")["background-color"]).to eq "rgb(17, 17, 17)"
 
@@ -203,7 +207,7 @@ RSpec.feature "recipes", js: true do
       end
 
       expect(page).not_to have_css("##{dom_id(quince_jam)}")
-      expect(Recipe.count).to eq 2
+      expect(Recipe.count).to eq 3
     end
   end
 end
